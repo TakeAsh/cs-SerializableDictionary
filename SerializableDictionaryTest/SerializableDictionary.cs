@@ -131,6 +131,21 @@ namespace TakeAsh {
         }
 
         private void read_Element_Attribute(XmlReader reader) {
+            while (reader.Read()) {
+                if (reader.Name == itemElementName) {
+                    string strValue = reader.GetAttribute(valueValueAttributeName);
+                    TValue value = strValue != null ?
+                        (TValue)valueConverter.ConvertFromString(strValue) :
+                        default(TValue);
+
+                    XmlReader inner = reader.ReadSubtree();
+                    inner.ReadToDescendant(typeof(TKey).Name);
+                    TKey key = (TKey)valueSerializer.Deserialize(inner);
+                    inner.Close();
+
+                    this.Add(key, value);
+                }
+            }
         }
 
         private void write_Element_Attribute(XmlWriter writer) {
