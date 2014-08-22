@@ -24,10 +24,10 @@ namespace TakeAsh {
         };
 
         const string itemElementName = "item";
-        const string keyTypeName = "key_type";
-        const string keyValueName = "key_value";
-        const string valueTypeName = "value_type";
-        const string valueValueName = "value_value";
+        const string keyTypeAttributeName = "key_type";
+        const string keyValueAttributeName = "key_value";
+        const string valueTypeAttributeName = "value_type";
+        const string valueValueAttributeName = "value_value";
 
         static TypeConverter keyConverter = TypeDescriptor.GetConverter(typeof(TKey));
         static TypeConverter valueConverter = TypeDescriptor.GetConverter(typeof(TValue));
@@ -95,12 +95,12 @@ namespace TakeAsh {
                 if (reader.Name == itemElementName) {
                     XmlReader inner = reader.ReadSubtree();
 
-                    inner.ReadToDescendant(keyValueName);
-                    inner.ReadStartElement(keyValueName);
+                    inner.ReadToDescendant(keyValueAttributeName);
+                    inner.ReadStartElement(keyValueAttributeName);
                     TKey key = (TKey)valueSerializer.Deserialize(inner);
                     inner.ReadEndElement();
 
-                    inner.ReadStartElement(valueValueName);
+                    inner.ReadStartElement(valueValueAttributeName);
                     TValue value = (TValue)valueSerializer.Deserialize(inner);
                     inner.ReadEndElement();
                     
@@ -115,11 +115,11 @@ namespace TakeAsh {
             foreach (TKey key in this.Keys) {
                 writer.WriteStartElement(itemElementName);
 
-                writer.WriteStartElement(keyValueName);
+                writer.WriteStartElement(keyValueAttributeName);
                 keySerializer.Serialize(writer, key);
                 writer.WriteEndElement();
 
-                writer.WriteStartElement(valueValueName);
+                writer.WriteStartElement(valueValueAttributeName);
                 valueSerializer.Serialize(writer, this[key]);
                 writer.WriteEndElement();
 
@@ -134,9 +134,9 @@ namespace TakeAsh {
             foreach (TKey key in this.Keys) {
                 writer.WriteStartElement(itemElementName);
 
-                writer.WriteAttributeString(valueValueName, this[key].ToString());
+                writer.WriteAttributeString(valueValueAttributeName, this[key].ToString());
 
-                writer.WriteStartElement(keyValueName);
+                writer.WriteStartElement(keyValueAttributeName);
                 keySerializer.Serialize(writer, key);
                 writer.WriteEndElement();
 
@@ -147,14 +147,14 @@ namespace TakeAsh {
         private void read_Attribute_Element(XmlReader reader) {
             while (reader.Read()) {
                 if (reader.Name == itemElementName) {
-                    string strKey = reader.GetAttribute(keyValueName);
+                    string strKey = reader.GetAttribute(keyValueAttributeName);
                     TKey key = strKey != null ?
                         (TKey)keyConverter.ConvertFromString(strKey) :
                         default(TKey);
 
                     XmlReader inner = reader.ReadSubtree();
-                    inner.ReadToDescendant(valueValueName);
-                    inner.ReadStartElement(valueValueName);
+                    inner.ReadToDescendant(valueValueAttributeName);
+                    inner.ReadStartElement(valueValueAttributeName);
                     TValue value = (TValue)valueSerializer.Deserialize(inner);
                     inner.ReadEndElement();
                     inner.Close();
@@ -168,10 +168,10 @@ namespace TakeAsh {
             foreach (TKey key in this.Keys) {
                 writer.WriteStartElement(itemElementName);
 
-                writer.WriteAttributeString(keyTypeName, typeof(TKey).Name);
-                writer.WriteAttributeString(keyValueName, key.ToString());
+                writer.WriteAttributeString(keyTypeAttributeName, typeof(TKey).Name);
+                writer.WriteAttributeString(keyValueAttributeName, key.ToString());
 
-                writer.WriteStartElement(valueValueName);
+                writer.WriteStartElement(valueValueAttributeName);
                 valueSerializer.Serialize(writer, this[key]);
                 writer.WriteEndElement();
 
@@ -182,12 +182,12 @@ namespace TakeAsh {
         private void read_Attribute_Attribute(XmlReader reader) {
             while (reader.Read()) {
                 if (reader.Name == itemElementName) {
-                    string strKey = reader.GetAttribute(keyValueName);
+                    string strKey = reader.GetAttribute(keyValueAttributeName);
                     TKey key = strKey != null ?
                         (TKey)keyConverter.ConvertFromString(strKey) :
                         default(TKey);
 
-                    string strValue = reader.GetAttribute(valueValueName);
+                    string strValue = reader.GetAttribute(valueValueAttributeName);
                     TValue value = strValue != null ?
                         (TValue)valueConverter.ConvertFromString(strValue) :
                         default(TValue);
@@ -201,11 +201,11 @@ namespace TakeAsh {
             foreach (TKey key in this.Keys) {
                 writer.WriteStartElement(itemElementName);
 
-                writer.WriteAttributeString(keyTypeName, typeof(TKey).Name);
-                writer.WriteAttributeString(keyValueName, key.ToString());
+                writer.WriteAttributeString(keyTypeAttributeName, typeof(TKey).Name);
+                writer.WriteAttributeString(keyValueAttributeName, key.ToString());
 
-                writer.WriteAttributeString(valueTypeName, typeof(TValue).Name);
-                writer.WriteAttributeString(valueValueName, this[key].ToString());
+                writer.WriteAttributeString(valueTypeAttributeName, typeof(TValue).Name);
+                writer.WriteAttributeString(valueValueAttributeName, this[key].ToString());
 
                 writer.WriteEndElement();
             }
