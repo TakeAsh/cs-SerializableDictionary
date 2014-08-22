@@ -128,12 +128,9 @@ namespace TakeAsh {
             foreach (TKey key in this.Keys) {
                 writer.WriteStartElement(itemElementName);
 
-                writer.WriteAttributeString(valueTypeAttributeName, typeof(TValue).Name);
                 writer.WriteAttributeString(valueValueAttributeName, this[key].ToString());
 
-                writer.WriteStartElement(keyElementName);
                 keySerializer.Serialize(writer, key);
-                writer.WriteEndElement();
 
                 writer.WriteEndElement();
             }
@@ -148,10 +145,8 @@ namespace TakeAsh {
                         default(TKey);
 
                     XmlReader inner = reader.ReadSubtree();
-                    inner.ReadToDescendant(valueElementName);
-                    inner.ReadStartElement(valueElementName);
+                    inner.ReadToDescendant(typeof(TValue).Name);
                     TValue value = (TValue)valueSerializer.Deserialize(inner);
-                    inner.ReadEndElement();
                     inner.Close();
 
                     this.Add(key, value);
@@ -163,12 +158,9 @@ namespace TakeAsh {
             foreach (TKey key in this.Keys) {
                 writer.WriteStartElement(itemElementName);
 
-                writer.WriteAttributeString(keyTypeAttributeName, typeof(TKey).Name);
                 writer.WriteAttributeString(keyValueAttributeName, key.ToString());
 
-                writer.WriteStartElement(valueElementName);
                 valueSerializer.Serialize(writer, this[key]);
-                writer.WriteEndElement();
 
                 writer.WriteEndElement();
             }
@@ -196,10 +188,8 @@ namespace TakeAsh {
             foreach (TKey key in this.Keys) {
                 writer.WriteStartElement(itemElementName);
 
-                writer.WriteAttributeString(keyTypeAttributeName, typeof(TKey).Name);
                 writer.WriteAttributeString(keyValueAttributeName, key.ToString());
 
-                writer.WriteAttributeString(valueTypeAttributeName, typeof(TValue).Name);
                 writer.WriteAttributeString(valueValueAttributeName, this[key].ToString());
 
                 writer.WriteEndElement();
