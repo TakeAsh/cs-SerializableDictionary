@@ -168,6 +168,7 @@ namespace TakeAsh {
             foreach (TKey key in this.Keys) {
                 writer.WriteStartElement(itemElementName);
 
+                writer.WriteAttributeString(keyTypeName, typeof(TKey).Name);
                 writer.WriteAttributeString(keyValueName, key.ToString());
 
                 writer.WriteStartElement(valueValueName);
