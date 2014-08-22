@@ -39,11 +39,11 @@ namespace TakeAsh {
         }
 
         static SerializableDictionary() {
-            bool isKeyStringifyable = keyConverter.CanConvertTo(typeof(string));
-            isKeyStringifyable &= keyConverter.CanConvertFrom(typeof(string));
-            bool isValueStringifyable = valueConverter.CanConvertTo(typeof(string));
-            isValueStringifyable &= valueConverter.CanConvertFrom(typeof(string));
-            _serializeType = (SerializeTypes)((isKeyStringifyable ? 2 : 0) + (isValueStringifyable ? 1 : 0));
+            bool keyCanStringify = keyConverter.CanConvertFrom(typeof(string))
+                && keyConverter.CanConvertTo(typeof(string));
+            bool valueCanStringify = valueConverter.CanConvertFrom(typeof(string))
+                && valueConverter.CanConvertTo(typeof(string));
+            _serializeType = (SerializeTypes)((keyCanStringify ? 2 : 0) + (valueCanStringify ? 1 : 0));
         }
 
         #region IXmlSerializable Members
@@ -168,12 +168,12 @@ namespace TakeAsh {
             while (reader.Read()) {
                 if (reader.Name == itemElementName) {
                     string strKey = reader.GetAttribute(keyName);
-                    TKey key = strKey != null && keyConverter != null ?
+                    TKey key = strKey != null ?
                         (TKey)keyConverter.ConvertFromString(strKey) :
                         default(TKey);
 
                     string strValue = reader.GetAttribute(valueName);
-                    TValue value = strValue != null && valueConverter != null ?
+                    TValue value = strValue != null ?
                         (TValue)valueConverter.ConvertFromString(strValue) :
                         default(TValue);
 
