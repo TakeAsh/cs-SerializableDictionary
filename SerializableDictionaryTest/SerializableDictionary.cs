@@ -57,6 +57,12 @@ namespace TakeAsh {
         }
 
         public void ReadXml(XmlReader reader) {
+            var keyTypeName = reader.GetAttribute(keyTypeAttributeName);
+            var valueTypeName = reader.GetAttribute(valueTypeAttributeName);
+            if (keyTypeName != typeof(TKey).Name || valueTypeName != typeof(TValue).Name) {
+                throw new XmlException("key_type/value_type mismatch");
+            }
+
             switch (SerializeType) {
                 case SerializeTypes.Element_Element:
                     read_Element_Element(reader);
@@ -74,6 +80,9 @@ namespace TakeAsh {
         }
 
         public void WriteXml(XmlWriter writer) {
+            writer.WriteAttributeString(keyTypeAttributeName, typeof(TKey).Name);
+            writer.WriteAttributeString(valueTypeAttributeName, typeof(TValue).Name);
+
             switch (SerializeType) {
                 case SerializeTypes.Element_Element:
                     write_Element_Element(writer);
