@@ -6,6 +6,9 @@ using kvpAA = System.Collections.Generic.KeyValuePair<int, string>;
 using ieAE = SerializableDictionaryTest.ImExPorter<int, SerializableDictionaryTest.MyData>;
 using kvpAE = System.Collections.Generic.KeyValuePair<int, SerializableDictionaryTest.MyData>;
 
+using ieEA = SerializableDictionaryTest.ImExPorter<SerializableDictionaryTest.MyData, int>;
+using kvpEA = System.Collections.Generic.KeyValuePair<SerializableDictionaryTest.MyData, int>;
+
 using ieEE = SerializableDictionaryTest.ImExPorter<SerializableDictionaryTest.MyData, SerializableDictionaryTest.MyData>;
 using kvpEE = System.Collections.Generic.KeyValuePair<SerializableDictionaryTest.MyData, SerializableDictionaryTest.MyData>;
 
@@ -29,6 +32,15 @@ namespace SerializableDictionaryTest {
             });
             ieAE.export(dicAE1, filePathAE);
             var dicAE2 = ieAE.import(filePathAE);
+
+            string filePathEA = @"../Data/SampleEA.log";
+            var dicEA1 = ieEA.create(new kvpEA[]{
+                new kvpEA(new MyData(){ ID=0, Name="Zero", RegisteredDate=DateTime.Now, Height=170.0, }, 0),
+                new kvpEA(new MyData(){ ID=1, Name="One", RegisteredDate=DateTime.Now, Height=160.0, }, 1),
+                new kvpEA(new MyData(){ ID=2, Name="Two", RegisteredDate=DateTime.Now, Height=165.0, }, 2),
+            });
+            ieEA.export(dicEA1, filePathEA);
+            var dicEA2 = ieEA.import(filePathEA);
 
             string filePathEE = @"../Data/SampleEE.log";
             var dicEE1 = ieEE.create(new kvpEE[]{
