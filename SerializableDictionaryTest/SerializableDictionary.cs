@@ -97,14 +97,10 @@ namespace TakeAsh {
                 if (reader.Name == itemElementName) {
                     XmlReader inner = reader.ReadSubtree();
 
-                    inner.ReadToDescendant(keyElementName);
-                    inner.ReadStartElement(keyElementName);
+                    inner.ReadToDescendant(typeof(TKey).Name);
                     TKey key = (TKey)valueSerializer.Deserialize(inner);
-                    inner.ReadEndElement();
 
-                    inner.ReadStartElement(valueElementName);
                     TValue value = (TValue)valueSerializer.Deserialize(inner);
-                    inner.ReadEndElement();
                     
                     inner.Close();
 
@@ -117,13 +113,9 @@ namespace TakeAsh {
             foreach (TKey key in this.Keys) {
                 writer.WriteStartElement(itemElementName);
 
-                writer.WriteStartElement(keyElementName);
                 keySerializer.Serialize(writer, key);
-                writer.WriteEndElement();
 
-                writer.WriteStartElement(valueElementName);
                 valueSerializer.Serialize(writer, this[key]);
-                writer.WriteEndElement();
 
                 writer.WriteEndElement();
             }
