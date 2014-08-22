@@ -89,28 +89,23 @@ namespace TakeAsh {
         #endregion
 
         private void read_Element_Element(XmlReader reader) {
-            bool wasEmpty = reader.IsEmptyElement;
-            reader.Read();
+            while (reader.Read()) {
+                if (reader.Name == itemElementName) {
+                    XmlReader inner = reader.ReadSubtree();
 
-            if (wasEmpty) {
-                return;
-            }
+                    inner.ReadToDescendant(keyName);
+                    inner.ReadStartElement(keyName);
+                    TKey key = (TKey)valueSerializer.Deserialize(inner);
+                    inner.ReadEndElement();
 
-            while (reader.NodeType != System.Xml.XmlNodeType.EndElement) {
-                reader.ReadStartElement(itemElementName);
+                    inner.ReadStartElement(valueName);
+                    TValue value = (TValue)valueSerializer.Deserialize(inner);
+                    inner.ReadEndElement();
+                    
+                    inner.Close();
 
-                reader.ReadStartElement(keyName);
-                TKey key = (TKey)keySerializer.Deserialize(reader);
-                reader.ReadEndElement();
-
-                reader.ReadStartElement(valueName);
-                TValue value = (TValue)valueSerializer.Deserialize(reader);
-                reader.ReadEndElement();
-
-                this.Add(key, value);
-
-                reader.ReadEndElement();
-                reader.MoveToContent();
+                    this.Add(key, value);
+                }
             }
         }
 
@@ -159,6 +154,7 @@ namespace TakeAsh {
                     inner.ReadToDescendant(valueName);
                     inner.ReadStartElement(valueName);
                     TValue value = (TValue)valueSerializer.Deserialize(inner);
+                    inner.ReadEndElement();
                     inner.Close();
 
                     this.Add(key, value);
