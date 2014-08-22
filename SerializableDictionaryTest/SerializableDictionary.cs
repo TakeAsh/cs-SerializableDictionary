@@ -12,7 +12,7 @@ namespace TakeAsh {
     /// </summary>
     /// <typeparam name="TKey">Type of Key</typeparam>
     /// <typeparam name="TValue">Type of Value</typeparam>
-    [XmlRoot("Dictionary")]
+    [XmlRoot("SerializableDictionary")]
     public class SerializableDictionary<TKey, TValue>
     : Dictionary<TKey, TValue>, IXmlSerializable {
 
