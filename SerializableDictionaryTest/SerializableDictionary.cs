@@ -25,9 +25,9 @@ namespace TakeAsh {
 
         const string itemElementName = "item";
         const string keyTypeAttributeName = "key_type";
-        const string keyValueAttributeName = "key_value";
+        const string keyValueAttributeName = "key";
         const string valueTypeAttributeName = "value_type";
-        const string valueValueAttributeName = "value_value";
+        const string valueValueAttributeName = "value";
         static readonly string keyElementName = typeof(TKey).Name;
         static readonly string valueElementName = typeof(TValue).Name;
 
