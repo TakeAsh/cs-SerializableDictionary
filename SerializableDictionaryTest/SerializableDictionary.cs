@@ -24,8 +24,8 @@ namespace TakeAsh {
         };
 
         const string itemElementName = "item";
-        const string keyName = "key";
-        const string valueName = "value";
+        const string keyValueName = "key_value";
+        const string valueValueName = "value_value";
 
         static TypeConverter keyConverter = TypeDescriptor.GetConverter(typeof(TKey));
         static TypeConverter valueConverter = TypeDescriptor.GetConverter(typeof(TValue));
@@ -93,12 +93,12 @@ namespace TakeAsh {
                 if (reader.Name == itemElementName) {
                     XmlReader inner = reader.ReadSubtree();
 
-                    inner.ReadToDescendant(keyName);
-                    inner.ReadStartElement(keyName);
+                    inner.ReadToDescendant(keyValueName);
+                    inner.ReadStartElement(keyValueName);
                     TKey key = (TKey)valueSerializer.Deserialize(inner);
                     inner.ReadEndElement();
 
-                    inner.ReadStartElement(valueName);
+                    inner.ReadStartElement(valueValueName);
                     TValue value = (TValue)valueSerializer.Deserialize(inner);
                     inner.ReadEndElement();
                     
@@ -113,11 +113,11 @@ namespace TakeAsh {
             foreach (TKey key in this.Keys) {
                 writer.WriteStartElement(itemElementName);
 
-                writer.WriteStartElement(keyName);
+                writer.WriteStartElement(keyValueName);
                 keySerializer.Serialize(writer, key);
                 writer.WriteEndElement();
 
-                writer.WriteStartElement(valueName);
+                writer.WriteStartElement(valueValueName);
                 valueSerializer.Serialize(writer, this[key]);
                 writer.WriteEndElement();
 
@@ -132,9 +132,9 @@ namespace TakeAsh {
             foreach (TKey key in this.Keys) {
                 writer.WriteStartElement(itemElementName);
 
-                writer.WriteAttributeString(valueName, this[key].ToString());
+                writer.WriteAttributeString(valueValueName, this[key].ToString());
 
-                writer.WriteStartElement(keyName);
+                writer.WriteStartElement(keyValueName);
                 keySerializer.Serialize(writer, key);
                 writer.WriteEndElement();
 
@@ -145,14 +145,14 @@ namespace TakeAsh {
         private void read_Attribute_Element(XmlReader reader) {
             while (reader.Read()) {
                 if (reader.Name == itemElementName) {
-                    string strKey = reader.GetAttribute(keyName);
+                    string strKey = reader.GetAttribute(keyValueName);
                     TKey key = strKey != null ?
                         (TKey)keyConverter.ConvertFromString(strKey) :
                         default(TKey);
 
                     XmlReader inner = reader.ReadSubtree();
-                    inner.ReadToDescendant(valueName);
-                    inner.ReadStartElement(valueName);
+                    inner.ReadToDescendant(valueValueName);
+                    inner.ReadStartElement(valueValueName);
                     TValue value = (TValue)valueSerializer.Deserialize(inner);
                     inner.ReadEndElement();
                     inner.Close();
@@ -166,9 +166,9 @@ namespace TakeAsh {
             foreach (TKey key in this.Keys) {
                 writer.WriteStartElement(itemElementName);
 
-                writer.WriteAttributeString(keyName, key.ToString());
+                writer.WriteAttributeString(keyValueName, key.ToString());
 
-                writer.WriteStartElement(valueName);
+                writer.WriteStartElement(valueValueName);
                 valueSerializer.Serialize(writer, this[key]);
                 writer.WriteEndElement();
 
@@ -179,12 +179,12 @@ namespace TakeAsh {
         private void read_Attribute_Attribute(XmlReader reader) {
             while (reader.Read()) {
                 if (reader.Name == itemElementName) {
-                    string strKey = reader.GetAttribute(keyName);
+                    string strKey = reader.GetAttribute(keyValueName);
                     TKey key = strKey != null ?
                         (TKey)keyConverter.ConvertFromString(strKey) :
                         default(TKey);
 
-                    string strValue = reader.GetAttribute(valueName);
+                    string strValue = reader.GetAttribute(valueValueName);
                     TValue value = strValue != null ?
                         (TValue)valueConverter.ConvertFromString(strValue) :
                         default(TValue);
@@ -198,9 +198,9 @@ namespace TakeAsh {
             foreach (TKey key in this.Keys) {
                 writer.WriteStartElement(itemElementName);
 
-                writer.WriteAttributeString(keyName, key.ToString());
+                writer.WriteAttributeString(keyValueName, key.ToString());
 
-                writer.WriteAttributeString(valueName, this[key].ToString());
+                writer.WriteAttributeString(valueValueName, this[key].ToString());
 
                 writer.WriteEndElement();
             }
