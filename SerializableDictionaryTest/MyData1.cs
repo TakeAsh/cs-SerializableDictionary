@@ -13,10 +13,10 @@ namespace SerializableDictionaryTest {
         public new string ToString() {
             return
                 "{" +
-                    "ID='" + ID + "', " +
-                    "Name='" + Name + "', " +
-                    "RegisteredDate='" + RegisteredDate.ToString() + "', " +
-                    "Height='" + Height + "', " +
+                    "ID:'" + ID + "', " +
+                    "Name:'" + Name + "', " +
+                    "RegisteredDate:'" + RegisteredDate.ToString() + "', " +
+                    "Height:'" + Height + "', " +
                 "}";
         }
     }

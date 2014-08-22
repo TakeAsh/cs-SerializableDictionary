@@ -45,9 +45,11 @@
   <ItemGroup>
     <Compile Include="ImExPorter.cs" />
     <Compile Include="MyData1.cs" />
+    <Compile Include="MyData2Converter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializableDictionary.cs" />
+    <Compile Include="MyData2.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

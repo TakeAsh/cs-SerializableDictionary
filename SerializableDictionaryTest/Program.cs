@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 using ieAA = SerializableDictionaryTest.ImExPorter<int, string>;
 using kvpAA = System.Collections.Generic.KeyValuePair<int, string>;
@@ -59,6 +60,11 @@ namespace SerializableDictionaryTest {
             });
             ieEE.export(dicEE1, filePathEE);
             var dicEE2 = ieEE.import(filePathEE);
+
+            TypeConverter myData2Converter = TypeDescriptor.GetConverter(typeof(MyData2));
+            MyData2 myData2 = (MyData2)myData2Converter.ConvertFromString(
+                "{ID:'100', Name:'山田', RegisteredDate:'2014-08-22', Height:'165.4', }"
+            );
         }
     }
 }
