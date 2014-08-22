@@ -107,7 +107,7 @@ namespace TakeAsh {
                     XmlReader inner = reader.ReadSubtree();
 
                     inner.ReadToDescendant(typeof(TKey).Name);
-                    TKey key = (TKey)valueSerializer.Deserialize(inner);
+                    TKey key = (TKey)keySerializer.Deserialize(inner);
 
                     TValue value = (TValue)valueSerializer.Deserialize(inner);
                     
@@ -140,7 +140,7 @@ namespace TakeAsh {
 
                     XmlReader inner = reader.ReadSubtree();
                     inner.ReadToDescendant(typeof(TKey).Name);
-                    TKey key = (TKey)valueSerializer.Deserialize(inner);
+                    TKey key = (TKey)keySerializer.Deserialize(inner);
                     inner.Close();
 
                     this.Add(key, value);
