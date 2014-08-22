@@ -24,12 +24,12 @@ namespace TakeAsh {
         };
 
         const string itemElementName = "item";
-        const string keyElementName = "key";
         const string keyTypeAttributeName = "key_type";
         const string keyValueAttributeName = "key_value";
-        const string valueElementName = "value";
         const string valueTypeAttributeName = "value_type";
         const string valueValueAttributeName = "value_value";
+        static readonly string keyElementName = typeof(TKey).Name;
+        static readonly string valueElementName = typeof(TValue).Name;
 
         static TypeConverter keyConverter = TypeDescriptor.GetConverter(typeof(TKey));
         static TypeConverter valueConverter = TypeDescriptor.GetConverter(typeof(TValue));
@@ -59,7 +59,7 @@ namespace TakeAsh {
         public void ReadXml(XmlReader reader) {
             var keyTypeName = reader.GetAttribute(keyTypeAttributeName);
             var valueTypeName = reader.GetAttribute(valueTypeAttributeName);
-            if (keyTypeName != typeof(TKey).Name || valueTypeName != typeof(TValue).Name) {
+            if (keyTypeName != keyElementName || valueTypeName != valueElementName) {
                 throw new XmlException("key_type/value_type mismatch");
             }
 
@@ -80,8 +80,8 @@ namespace TakeAsh {
         }
 
         public void WriteXml(XmlWriter writer) {
-            writer.WriteAttributeString(keyTypeAttributeName, typeof(TKey).Name);
-            writer.WriteAttributeString(valueTypeAttributeName, typeof(TValue).Name);
+            writer.WriteAttributeString(keyTypeAttributeName, keyElementName);
+            writer.WriteAttributeString(valueTypeAttributeName, valueElementName);
 
             switch (SerializeType) {
                 case SerializeTypes.Element_Element:
@@ -106,7 +106,7 @@ namespace TakeAsh {
                 if (reader.Name == itemElementName) {
                     XmlReader inner = reader.ReadSubtree();
 
-                    inner.ReadToDescendant(typeof(TKey).Name);
+                    inner.ReadToDescendant(keyElementName);
                     TKey key = (TKey)keySerializer.Deserialize(inner);
 
                     TValue value = (TValue)valueSerializer.Deserialize(inner);
@@ -139,7 +139,7 @@ namespace TakeAsh {
                         default(TValue);
 
                     XmlReader inner = reader.ReadSubtree();
-                    inner.ReadToDescendant(typeof(TKey).Name);
+                    inner.ReadToDescendant(keyElementName);
                     TKey key = (TKey)keySerializer.Deserialize(inner);
                     inner.Close();
 
@@ -169,7 +169,7 @@ namespace TakeAsh {
                         default(TKey);
 
                     XmlReader inner = reader.ReadSubtree();
-                    inner.ReadToDescendant(typeof(TValue).Name);
+                    inner.ReadToDescendant(valueElementName);
                     TValue value = (TValue)valueSerializer.Deserialize(inner);
                     inner.Close();
 
