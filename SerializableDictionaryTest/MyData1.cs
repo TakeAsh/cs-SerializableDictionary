@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace SerializableDictionaryTest {
-    public class MyData {
+    public class MyData1 {
         public int ID { get; set; }
         public string Name { get; set; }
         public DateTime RegisteredDate { get; set; }
