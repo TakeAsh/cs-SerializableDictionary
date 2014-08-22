@@ -24,7 +24,9 @@ namespace TakeAsh {
         };
 
         const string itemElementName = "item";
+        const string keyTypeName = "key_type";
         const string keyValueName = "key_value";
+        const string valueTypeName = "value_type";
         const string valueValueName = "value_value";
 
         static TypeConverter keyConverter = TypeDescriptor.GetConverter(typeof(TKey));
@@ -198,8 +200,10 @@ namespace TakeAsh {
             foreach (TKey key in this.Keys) {
                 writer.WriteStartElement(itemElementName);
 
+                writer.WriteAttributeString(keyTypeName, typeof(TKey).Name);
                 writer.WriteAttributeString(keyValueName, key.ToString());
 
+                writer.WriteAttributeString(valueTypeName, typeof(TValue).Name);
                 writer.WriteAttributeString(valueValueName, this[key].ToString());
 
                 writer.WriteEndElement();
