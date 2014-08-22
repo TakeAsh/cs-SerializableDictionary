@@ -27,8 +27,8 @@ namespace TakeAsh {
         const string keyName = "key";
         const string valueName = "value";
 
-        static TypeConverter converterKey = TypeDescriptor.GetConverter(typeof(TKey));
-        static TypeConverter converterValue = TypeDescriptor.GetConverter(typeof(TValue));
+        static TypeConverter keyConverter = TypeDescriptor.GetConverter(typeof(TKey));
+        static TypeConverter valueConverter = TypeDescriptor.GetConverter(typeof(TValue));
         static XmlSerializer keySerializer = new XmlSerializer(typeof(TKey));
         static XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
 
@@ -39,10 +39,10 @@ namespace TakeAsh {
         }
 
         static SerializableDictionary() {
-            bool isKeyStringifyable = converterKey.CanConvertTo(typeof(string));
-            isKeyStringifyable &= converterKey.CanConvertFrom(typeof(string));
-            bool isValueStringifyable = converterValue.CanConvertTo(typeof(string));
-            isValueStringifyable &= converterValue.CanConvertFrom(typeof(string));
+            bool isKeyStringifyable = keyConverter.CanConvertTo(typeof(string));
+            isKeyStringifyable &= keyConverter.CanConvertFrom(typeof(string));
+            bool isValueStringifyable = valueConverter.CanConvertTo(typeof(string));
+            isValueStringifyable &= valueConverter.CanConvertFrom(typeof(string));
             _serializeType = (SerializeTypes)((isKeyStringifyable ? 2 : 0) + (isValueStringifyable ? 1 : 0));
         }
 
@@ -168,13 +168,13 @@ namespace TakeAsh {
             while (reader.Read()) {
                 if (reader.Name == itemElementName) {
                     string strKey = reader.GetAttribute(keyName);
-                    TKey key = strKey != null && converterKey != null ?
-                        (TKey)converterKey.ConvertFromString(strKey) :
+                    TKey key = strKey != null && keyConverter != null ?
+                        (TKey)keyConverter.ConvertFromString(strKey) :
                         default(TKey);
 
                     string strValue = reader.GetAttribute(valueName);
-                    TValue value = strValue != null && converterValue != null ?
-                        (TValue)converterValue.ConvertFromString(strValue) :
+                    TValue value = strValue != null && valueConverter != null ?
+                        (TValue)valueConverter.ConvertFromString(strValue) :
                         default(TValue);
 
                     this.Add(key, value);
