@@ -148,6 +148,22 @@ namespace TakeAsh {
         }
 
         private void read_Attribute_Element(XmlReader reader) {
+            while (reader.Read()) {
+                if (reader.Name == itemElementName) {
+                    string strKey = reader.GetAttribute(keyName);
+                    TKey key = strKey != null ?
+                        (TKey)keyConverter.ConvertFromString(strKey) :
+                        default(TKey);
+
+                    XmlReader inner = reader.ReadSubtree();
+                    inner.ReadToDescendant(valueName);
+                    inner.ReadStartElement(valueName);
+                    TValue value = (TValue)valueSerializer.Deserialize(inner);
+                    inner.Close();
+
+                    this.Add(key, value);
+                }
+            }
         }
 
         private void write_Attribute_Element(XmlWriter writer) {
