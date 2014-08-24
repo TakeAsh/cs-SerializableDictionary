@@ -10,7 +10,7 @@ namespace SerializableDictionaryTest {
         public DateTime RegisteredDate { get; set; }
         public double Height { get; set; }
 
-        public new string ToString() {
+        public override string ToString() {
             return
                 "{" +
                     "ID:'" + ID + "', " +

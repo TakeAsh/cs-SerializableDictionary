@@ -56,7 +56,7 @@ namespace SerializableDictionaryTest {
             }
         }
 
-        public new string ToString() {
+        public override string ToString() {
             return
                 "{" +
                     "ID:'" + ID + "', " +
