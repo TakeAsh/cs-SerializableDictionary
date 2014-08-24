@@ -16,35 +16,35 @@ using kvpRR = System.Collections.Generic.KeyValuePair<SerializableDictionaryTest
 namespace SerializableDictionaryTest {
     class Program {
         static void Main(string[] args) {
-            string filePathAA = @"../Data/SampleAA.log";
-            var dicAA1 = ieVV.create(new kvpVV[]{
+            string filePathVV = @"../Data/SampleVV.log";
+            var dicVV1 = ieVV.create(new kvpVV[]{
                 new kvpVV(0, "Zero"),
                 new kvpVV(1, "One"),
                 new kvpVV(2, "Two"),
             });
-            ieVV.export(dicAA1, filePathAA);
-            var dicAA2 = ieVV.import(filePathAA);
+            ieVV.export(dicVV1, filePathVV);
+            var dicVV2 = ieVV.import(filePathVV);
 
-            string filePathAE = @"../Data/SampleAE.log";
-            var dicAE1 = ieVR.create(new kvpVR[]{
+            string filePathVR = @"../Data/SampleVR.log";
+            var dicVR1 = ieVR.create(new kvpVR[]{
                 new kvpVR(0, new MyData1(){ ID=0, Name="Zero", RegisteredDate=DateTime.Now, Height=170.0, }),
                 new kvpVR(1, new MyData1(){ ID=1, Name="One", RegisteredDate=DateTime.Now, Height=160.0, }),
                 new kvpVR(2, new MyData1(){ ID=2, Name="Two", RegisteredDate=DateTime.Now, Height=165.0, }),
             });
-            ieVR.export(dicAE1, filePathAE);
-            var dicAE2 = ieVR.import(filePathAE);
+            ieVR.export(dicVR1, filePathVR);
+            var dicVR2 = ieVR.import(filePathVR);
 
-            string filePathEA = @"../Data/SampleEA.log";
-            var dicEA1 = ieRV.create(new kvpRV[]{
+            string filePathRV = @"../Data/SampleRV.log";
+            var dicRV1 = ieRV.create(new kvpRV[]{
                 new kvpRV(new MyData1(){ ID=0, Name="Zero", RegisteredDate=DateTime.Now, Height=170.0, }, 0),
                 new kvpRV(new MyData1(){ ID=1, Name="One", RegisteredDate=DateTime.Now, Height=160.0, }, 1),
                 new kvpRV(new MyData1(){ ID=2, Name="Two", RegisteredDate=DateTime.Now, Height=165.0, }, 2),
             });
-            ieRV.export(dicEA1, filePathEA);
-            var dicEA2 = ieRV.import(filePathEA);
+            ieRV.export(dicRV1, filePathRV);
+            var dicRV2 = ieRV.import(filePathRV);
 
-            string filePathEE = @"../Data/SampleEE.log";
-            var dicEE1 = ieRR.create(new kvpRR[]{
+            string filePathRR = @"../Data/SampleRR.log";
+            var dicRR1 = ieRR.create(new kvpRR[]{
                 new kvpRR(
                     new MyData1(){ ID=0, Name="Zero", RegisteredDate=DateTime.Now, Height=170.0, },
                     new MyData1(){ ID=10, Name="AZero", RegisteredDate=DateTime.Now, Height=175.1, }
@@ -58,8 +58,8 @@ namespace SerializableDictionaryTest {
                     new MyData1(){ ID=12, Name="ATwo", RegisteredDate=DateTime.Now, Height=170.1, }
                 ),
             });
-            ieRR.export(dicEE1, filePathEE);
-            var dicEE2 = ieRR.import(filePathEE);
+            ieRR.export(dicRR1, filePathRR);
+            var dicRR2 = ieRR.import(filePathRR);
 
             TypeConverter myData2Converter = TypeDescriptor.GetConverter(typeof(MyData2));
             MyData2 myData2 = (MyData2)myData2Converter.ConvertFromString(
