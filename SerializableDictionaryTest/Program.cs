@@ -1,65 +1,65 @@
 ﻿using System;
 using System.ComponentModel;
 
-using ieAA = SerializableDictionaryTest.ImExPorter<int, string>;
-using kvpAA = System.Collections.Generic.KeyValuePair<int, string>;
+using ieVV = SerializableDictionaryTest.ImExPorter<int, string>;
+using kvpVV = System.Collections.Generic.KeyValuePair<int, string>;
 
-using ieAE = SerializableDictionaryTest.ImExPorter<int, SerializableDictionaryTest.MyData1>;
-using kvpAE = System.Collections.Generic.KeyValuePair<int, SerializableDictionaryTest.MyData1>;
+using ieVR = SerializableDictionaryTest.ImExPorter<int, SerializableDictionaryTest.MyData1>;
+using kvpVR = System.Collections.Generic.KeyValuePair<int, SerializableDictionaryTest.MyData1>;
 
-using ieEA = SerializableDictionaryTest.ImExPorter<SerializableDictionaryTest.MyData1, int>;
-using kvpEA = System.Collections.Generic.KeyValuePair<SerializableDictionaryTest.MyData1, int>;
+using ieRV = SerializableDictionaryTest.ImExPorter<SerializableDictionaryTest.MyData1, int>;
+using kvpRV = System.Collections.Generic.KeyValuePair<SerializableDictionaryTest.MyData1, int>;
 
-using ieEE = SerializableDictionaryTest.ImExPorter<SerializableDictionaryTest.MyData1, SerializableDictionaryTest.MyData1>;
-using kvpEE = System.Collections.Generic.KeyValuePair<SerializableDictionaryTest.MyData1, SerializableDictionaryTest.MyData1>;
+using ieRR = SerializableDictionaryTest.ImExPorter<SerializableDictionaryTest.MyData1, SerializableDictionaryTest.MyData1>;
+using kvpRR = System.Collections.Generic.KeyValuePair<SerializableDictionaryTest.MyData1, SerializableDictionaryTest.MyData1>;
 
 namespace SerializableDictionaryTest {
     class Program {
         static void Main(string[] args) {
             string filePathAA = @"../Data/SampleAA.log";
-            var dicAA1 = ieAA.create(new kvpAA[]{
-                new kvpAA(0, "Zero"),
-                new kvpAA(1, "One"),
-                new kvpAA(2, "Two"),
+            var dicAA1 = ieVV.create(new kvpVV[]{
+                new kvpVV(0, "Zero"),
+                new kvpVV(1, "One"),
+                new kvpVV(2, "Two"),
             });
-            ieAA.export(dicAA1, filePathAA);
-            var dicAA2 = ieAA.import(filePathAA);
+            ieVV.export(dicAA1, filePathAA);
+            var dicAA2 = ieVV.import(filePathAA);
 
             string filePathAE = @"../Data/SampleAE.log";
-            var dicAE1 = ieAE.create(new kvpAE[]{
-                new kvpAE(0, new MyData1(){ ID=0, Name="Zero", RegisteredDate=DateTime.Now, Height=170.0, }),
-                new kvpAE(1, new MyData1(){ ID=1, Name="One", RegisteredDate=DateTime.Now, Height=160.0, }),
-                new kvpAE(2, new MyData1(){ ID=2, Name="Two", RegisteredDate=DateTime.Now, Height=165.0, }),
+            var dicAE1 = ieVR.create(new kvpVR[]{
+                new kvpVR(0, new MyData1(){ ID=0, Name="Zero", RegisteredDate=DateTime.Now, Height=170.0, }),
+                new kvpVR(1, new MyData1(){ ID=1, Name="One", RegisteredDate=DateTime.Now, Height=160.0, }),
+                new kvpVR(2, new MyData1(){ ID=2, Name="Two", RegisteredDate=DateTime.Now, Height=165.0, }),
             });
-            ieAE.export(dicAE1, filePathAE);
-            var dicAE2 = ieAE.import(filePathAE);
+            ieVR.export(dicAE1, filePathAE);
+            var dicAE2 = ieVR.import(filePathAE);
 
             string filePathEA = @"../Data/SampleEA.log";
-            var dicEA1 = ieEA.create(new kvpEA[]{
-                new kvpEA(new MyData1(){ ID=0, Name="Zero", RegisteredDate=DateTime.Now, Height=170.0, }, 0),
-                new kvpEA(new MyData1(){ ID=1, Name="One", RegisteredDate=DateTime.Now, Height=160.0, }, 1),
-                new kvpEA(new MyData1(){ ID=2, Name="Two", RegisteredDate=DateTime.Now, Height=165.0, }, 2),
+            var dicEA1 = ieRV.create(new kvpRV[]{
+                new kvpRV(new MyData1(){ ID=0, Name="Zero", RegisteredDate=DateTime.Now, Height=170.0, }, 0),
+                new kvpRV(new MyData1(){ ID=1, Name="One", RegisteredDate=DateTime.Now, Height=160.0, }, 1),
+                new kvpRV(new MyData1(){ ID=2, Name="Two", RegisteredDate=DateTime.Now, Height=165.0, }, 2),
             });
-            ieEA.export(dicEA1, filePathEA);
-            var dicEA2 = ieEA.import(filePathEA);
+            ieRV.export(dicEA1, filePathEA);
+            var dicEA2 = ieRV.import(filePathEA);
 
             string filePathEE = @"../Data/SampleEE.log";
-            var dicEE1 = ieEE.create(new kvpEE[]{
-                new kvpEE(
+            var dicEE1 = ieRR.create(new kvpRR[]{
+                new kvpRR(
                     new MyData1(){ ID=0, Name="Zero", RegisteredDate=DateTime.Now, Height=170.0, },
                     new MyData1(){ ID=10, Name="AZero", RegisteredDate=DateTime.Now, Height=175.1, }
                 ),
-                new kvpEE(
+                new kvpRR(
                     new MyData1(){ ID=1, Name="One", RegisteredDate=DateTime.Now, Height=160.0, },
                     new MyData1(){ ID=11, Name="AOne", RegisteredDate=DateTime.Now, Height=165.1, }
                 ),
-                new kvpEE(
+                new kvpRR(
                     new MyData1(){ ID=2, Name="Two", RegisteredDate=DateTime.Now, Height=165.0, },
                     new MyData1(){ ID=12, Name="ATwo", RegisteredDate=DateTime.Now, Height=170.1, }
                 ),
             });
-            ieEE.export(dicEE1, filePathEE);
-            var dicEE2 = ieEE.import(filePathEE);
+            ieRR.export(dicEE1, filePathEE);
+            var dicEE2 = ieRR.import(filePathEE);
 
             TypeConverter myData2Converter = TypeDescriptor.GetConverter(typeof(MyData2));
             MyData2 myData2 = (MyData2)myData2Converter.ConvertFromString(
