@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using TakeAsh;
 
 using ieVV1 = SerializableDictionaryTest.ImExPorter<int, string>;
 using kvpVV1 = System.Collections.Generic.KeyValuePair<int, string>;
@@ -122,6 +123,48 @@ namespace SerializableDictionaryTest {
             });
             ieRR2.export(dicRR2a, filePathRR2);
             var dicRR2b = ieRR2.import(filePathRR2);
+
+            string filePathMyData3 = @"../Data/SampleMyData3.log";
+            var myData3a = new MyData3() {
+                Name = "Sample3",
+                RGB = new SerializableDictionary<MyData3.RGBTypes, SerializableDictionary<int, double>>(){
+                    {
+                        MyData3.RGBTypes.R,
+                        new SerializableDictionary<int, double>(){
+                            {  0,   0},
+                            { 20,  25},
+                            { 40,  50},
+                            { 60,  70},
+                            { 80,  85},
+                            {100, 100},
+                        }
+                    },
+                    {
+                        MyData3.RGBTypes.G,
+                        new SerializableDictionary<int, double>(){
+                            {  0,   0},
+                            { 20,  15},
+                            { 40,  30},
+                            { 60,  50},
+                            { 80,  75},
+                            {100, 100},
+                        }
+                    },
+                    {
+                        MyData3.RGBTypes.B,
+                        new SerializableDictionary<int, double>(){
+                            {  0,   0},
+                            { 20,  25},
+                            { 40,  50},
+                            { 60,  50},
+                            { 80,  75},
+                            {100, 100},
+                        }
+                    },
+                },
+            };
+            myData3a.export(filePathMyData3);
+            var myData3b = MyData3.import(filePathMyData3);
         }
     }
 }
