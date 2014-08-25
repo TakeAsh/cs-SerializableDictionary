@@ -131,34 +131,19 @@ namespace SerializableDictionaryTest {
                     {
                         MyData3.RGBTypes.R,
                         new SerializableDictionary<int, double>(){
-                            {  0,   0},
-                            { 20,  25},
-                            { 40,  50},
-                            { 60,  70},
-                            { 80,  85},
-                            {100, 100},
+                            {  0,   0}, { 20,  25}, { 40,  50}, { 60,  70}, { 80,  85}, {100, 100},
                         }
                     },
                     {
                         MyData3.RGBTypes.G,
                         new SerializableDictionary<int, double>(){
-                            {  0,   0},
-                            { 20,  15},
-                            { 40,  30},
-                            { 60,  50},
-                            { 80,  75},
-                            {100, 100},
+                            {  0,   0}, { 20,  15}, { 40,  30}, { 60,  50}, { 80,  75}, {100, 100},
                         }
                     },
                     {
                         MyData3.RGBTypes.B,
                         new SerializableDictionary<int, double>(){
-                            {  0,   0},
-                            { 20,  25},
-                            { 40,  50},
-                            { 60,  50},
-                            { 80,  75},
-                            {100, 100},
+                            {  0,   0}, { 20,  25}, { 40,  50}, { 60,  50}, { 80,  75}, {100, 100},
                         }
                     },
                 },
