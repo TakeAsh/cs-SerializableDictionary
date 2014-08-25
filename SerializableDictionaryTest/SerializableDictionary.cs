@@ -121,6 +121,9 @@ namespace TakeAsh {
                     inner.Close();
 
                     this.Add(key, value);
+                } else {
+                    reader.Skip();
+                    break;
                 }
             }
         }
@@ -151,6 +154,9 @@ namespace TakeAsh {
                     inner.Close();
 
                     this.Add(key, value);
+                } else {
+                    reader.Skip();
+                    break;
                 }
             }
         }
@@ -181,6 +187,9 @@ namespace TakeAsh {
                     inner.Close();
 
                     this.Add(key, value);
+                } else {
+                    reader.Skip();
+                    break;
                 }
             }
         }
@@ -211,6 +220,9 @@ namespace TakeAsh {
                         default(TValue);
 
                     this.Add(key, value);
+                } else {
+                    reader.Skip();
+                    break;
                 }
             }
         }
