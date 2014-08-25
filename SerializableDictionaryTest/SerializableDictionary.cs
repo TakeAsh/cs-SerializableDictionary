@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml;
 using System.Xml.Schema;
@@ -28,8 +29,14 @@ namespace TakeAsh {
         const string keyValueAttributeName = "key";
         const string valueTypeAttributeName = "value_type";
         const string valueValueAttributeName = "value";
-        static readonly string keyElementName = typeof(TKey).Name;
-        static readonly string valueElementName = typeof(TValue).Name;
+        static readonly Type keyType = typeof(TKey);
+        static readonly Type valueType = typeof(TValue);
+        static readonly string keyElementName = keyType.IsGenericType ?
+                keyType.Name.Remove(keyType.Name.IndexOf('`')) :
+                keyType.Name;
+        static readonly string valueElementName = valueType.IsGenericType ?
+                valueType.Name.Remove(valueType.Name.IndexOf('`')) :
+                valueType.Name;
 
         static TypeConverter keyConverter = TypeDescriptor.GetConverter(typeof(TKey));
         static TypeConverter valueConverter = TypeDescriptor.GetConverter(typeof(TValue));
@@ -103,7 +110,7 @@ namespace TakeAsh {
 
         private void read_Element_Element(XmlReader reader) {
             while (reader.Read()) {
-                if (reader.Name == itemElementName) {
+                if (reader.NodeType != XmlNodeType.EndElement && reader.Name == itemElementName) {
                     XmlReader inner = reader.ReadSubtree();
 
                     inner.ReadToDescendant(keyElementName);
@@ -132,7 +139,7 @@ namespace TakeAsh {
 
         private void read_Element_Attribute(XmlReader reader) {
             while (reader.Read()) {
-                if (reader.Name == itemElementName) {
+                if (reader.NodeType != XmlNodeType.EndElement && reader.Name == itemElementName) {
                     string strValue = reader.GetAttribute(valueValueAttributeName);
                     TValue value = strValue != null ?
                         (TValue)valueConverter.ConvertFromString(strValue) :
@@ -162,7 +169,7 @@ namespace TakeAsh {
 
         private void read_Attribute_Element(XmlReader reader) {
             while (reader.Read()) {
-                if (reader.Name == itemElementName) {
+                if (reader.NodeType != XmlNodeType.EndElement && reader.Name == itemElementName) {
                     string strKey = reader.GetAttribute(keyValueAttributeName);
                     TKey key = strKey != null ?
                         (TKey)keyConverter.ConvertFromString(strKey) :
@@ -192,7 +199,7 @@ namespace TakeAsh {
 
         private void read_Attribute_Attribute(XmlReader reader) {
             while (reader.Read()) {
-                if (reader.Name == itemElementName) {
+                if (reader.NodeType != XmlNodeType.EndElement && reader.Name == itemElementName) {
                     string strKey = reader.GetAttribute(keyValueAttributeName);
                     TKey key = strKey != null ?
                         (TKey)keyConverter.ConvertFromString(strKey) :
