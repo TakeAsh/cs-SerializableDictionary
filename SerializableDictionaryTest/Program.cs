@@ -147,6 +147,32 @@ namespace SerializableDictionaryTest {
                         }
                     },
                 },
+                CMYK = new SerializableDictionary<MyData3.CMYKTypes, SerializableDictionary<double, double>>(){
+                    {
+                        MyData3.CMYKTypes.C,
+                        new SerializableDictionary<double, double>(){
+                            {0.00, 0.00}, {0.20, 0.25}, {0.40, 0.50}, {0.60, 0.70}, {0.80, 0.85}, {1.00, 1.00},
+                        }
+                    },
+                    {
+                        MyData3.CMYKTypes.M,
+                        new SerializableDictionary<double, double>(){
+                            {0.00, 0.00}, {0.20, 0.15}, {0.40, 0.30}, {0.60, 0.50}, {0.80, 0.75}, {1.00, 1.00},
+                        }
+                    },
+                    {
+                        MyData3.CMYKTypes.Y,
+                        new SerializableDictionary<double, double>(){
+                            {0.00, 0.00}, {0.20, 0.25}, {0.40, 0.50}, {0.60, 0.50}, {0.80, 0.75}, {1.00, 1.00},
+                        }
+                    },
+                    {
+                        MyData3.CMYKTypes.K,
+                        new SerializableDictionary<double, double>(){
+                            {0.00, 0.00}, {0.20, 0.15}, {0.40, 0.30}, {0.60, 0.70}, {0.80, 0.85}, {1.00, 1.00},
+                        }
+                    },
+                },
             };
             myData3a.export(filePathMyData3);
             var myData3b = MyData3.import(filePathMyData3);

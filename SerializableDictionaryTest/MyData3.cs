@@ -12,8 +12,13 @@ namespace SerializableDictionaryTest {
             R, G, B,
         }
 
+        public enum CMYKTypes {
+            C, M, Y, K,
+        }
+
         public string Name { get; set; }
         public SerializableDictionary<RGBTypes, SerializableDictionary<int, double>> RGB { get; set; }
+        public SerializableDictionary<CMYKTypes, SerializableDictionary<double, double>> CMYK { get; set; }
 
         private static XmlSerializer serializer = new XmlSerializer(typeof(MyData3));
 
