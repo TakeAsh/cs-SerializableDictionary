@@ -18,37 +18,12 @@ namespace SerializableDictionaryTest {
             return ret;
         }
 
-        private static XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary<TKey, TValue>));
-
-        public static bool export(object obj, string fileName) {
-            bool ret = false;
-            try {
-                XmlWriterSettings settings = new XmlWriterSettings();
-                settings.Indent = true;
-                //settings.IndentChars = ("\t");
-                settings.Encoding = Encoding.UTF8;
-                using (XmlWriter writer = XmlWriter.Create(fileName, settings)) {
-                    serializer.Serialize(writer, obj);
-                }
-                ret = true;
-            }
-            catch (Exception ex) {
-                Debug.Print(ex.Message);
-            }
-            return ret;
+        static public bool export(SerializableDictionary<TKey, TValue> obj, string fileName) {
+            return XmlHelper<SerializableDictionary<TKey, TValue>>.exportFile(fileName, obj);
         }
 
-        public static SerializableDictionary<TKey, TValue> import(string fileName) {
-            SerializableDictionary<TKey, TValue> ret = default(SerializableDictionary<TKey, TValue>);
-            try {
-                using (FileStream fs = new FileStream(fileName, FileMode.Open)) {
-                    ret = (SerializableDictionary<TKey, TValue>)serializer.Deserialize(fs);
-                }
-            }
-            catch (Exception ex) {
-                Debug.Print(ex.Message);
-            }
-            return ret;
+        static public SerializableDictionary<TKey, TValue> import(string fileName) {
+            return XmlHelper<SerializableDictionary<TKey, TValue>>.importFile(fileName);
         }
     }
 }

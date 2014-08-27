@@ -20,37 +20,12 @@ namespace SerializableDictionaryTest {
         public SerializableDictionary<RGBTypes, SerializableDictionary<int, double>> RGB { get; set; }
         public SerializableDictionary<CMYKTypes, SerializableDictionary<double, double>> CMYK { get; set; }
 
-        private static XmlSerializer serializer = new XmlSerializer(typeof(MyData3));
-
         public bool export(string fileName) {
-            bool ret = false;
-            try {
-                XmlWriterSettings settings = new XmlWriterSettings();
-                settings.Indent = true;
-                //settings.IndentChars = ("\t");
-                settings.Encoding = Encoding.UTF8;
-                using (XmlWriter writer = XmlWriter.Create(fileName, settings)) {
-                    serializer.Serialize(writer, this);
-                }
-                ret = true;
-            }
-            catch (Exception ex) {
-                Debug.Print(ex.Message);
-            }
-            return ret;
+            return XmlHelper<MyData3>.exportFile(fileName, this);
         }
 
-        public static MyData3 import(string fileName) {
-            var ret = default(MyData3);
-            try {
-                using (FileStream fs = new FileStream(fileName, FileMode.Open)) {
-                    ret = (MyData3)serializer.Deserialize(fs);
-                }
-            }
-            catch (Exception ex) {
-                Debug.Print(ex.Message);
-            }
-            return ret;
+        static public MyData3 import(string fileName) {
+            return XmlHelper<MyData3>.importFile(fileName);
         }
     }
 }
