@@ -3,7 +3,8 @@ using System.ComponentModel;
 using System.Globalization;
 
 namespace TakeAsh {
-    public interface IStringify<T> {
+    public interface IStringify<T>
+        where T : new() {
         /// <summary>
         /// Serialize an object as a string.
         /// </summary>
@@ -19,7 +20,7 @@ namespace TakeAsh {
     }
 
     public class StringifyConverter<T> : TypeConverter
-        where T : IStringify<T> {
+        where T : IStringify<T>, new() {
         public override bool CanConvertTo(
             ITypeDescriptorContext context,
             Type destinationType
@@ -58,7 +59,7 @@ namespace TakeAsh {
             object value
         ) {
             if (value is string) {
-                return default(T).FromString((string)value);
+                return (new T()).FromString((string)value);
             }
             return base.ConvertFrom(context, culture, value);
         }

@@ -45,7 +45,6 @@
   <ItemGroup>
     <Compile Include="ImExPorter.cs" />
     <Compile Include="MyData1.cs" />
-    <Compile Include="MyData2Converter.cs" />
     <Compile Include="MyData3.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

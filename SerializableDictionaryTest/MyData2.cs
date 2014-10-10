@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
+using TakeAsh;
 
 namespace SerializableDictionaryTest {
-    [TypeConverter(typeof(MyData2Converter))]
-    public class MyData2 {
+    [TypeConverter(typeof(StringifyConverter<MyData2>))]
+    public class MyData2 : IStringify<MyData2> {
+        static Regex regInner = new Regex(@"^\s*\{\s*(?<inner>.*)\s*\}\s*$");
+        static Regex regProperty = new Regex(@"\s*(?<key>[^\s:]+)\s*:\s*'(?<value>[^']+)'\s*");
+
         public int ID { get; set; }
         public string Name { get; set; }
         public DateTime RegisteredDate { get; set; }
@@ -64,6 +66,22 @@ namespace SerializableDictionaryTest {
                     "RegisteredDate:'" + RegisteredDate.ToString() + "', " +
                     "Height:'" + Height + "', " +
                 "}";
+        }
+
+        public MyData2 FromString(string source) {
+            if (String.IsNullOrEmpty(source)) {
+                return this;
+            }
+            MatchCollection mcInner = regInner.Matches(source);
+            string strInner = mcInner[0].Groups["inner"].Value;
+            string[] strProperties = strInner.Split(new char[] { ',' });
+            foreach (var strProp in strProperties) {
+                MatchCollection mcProp = regProperty.Matches(strProp);
+                foreach (Match m in mcProp) {
+                    this[m.Groups["key"].Value] = m.Groups["value"].Value;
+                }
+            }
+            return this;
         }
     }
 }
