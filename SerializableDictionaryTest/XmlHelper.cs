@@ -8,9 +8,18 @@ using System.Xml.Serialization;
 namespace TakeAsh {
     public class XmlHelper<T> {
         static private XmlSerializer serializer = new XmlSerializer(typeof(T));
+        static private XmlSerializerNamespaces blankNameSpace = new XmlSerializerNamespaces();
+
+        static XmlHelper() {
+            blankNameSpace.Add("", "");
+        }
 
         static public T importFile(string fileName) {
             T ret = default(T);
+            if (!File.Exists(fileName)) {
+                Debug.Print("XmlHelper.importFile: Not Exist : " + fileName);
+                return ret;
+            }
             try {
                 using(FileStream fs = new FileStream(fileName, FileMode.Open)) {
                     ret = (T)serializer.Deserialize(fs);
@@ -30,7 +39,7 @@ namespace TakeAsh {
                 //settings.IndentChars = ("  ");
                 settings.Encoding = Encoding.UTF8;
                 using(XmlWriter writer = XmlWriter.Create(fileName, settings)) {
-                    serializer.Serialize(writer, obj);
+                    serializer.Serialize(writer, obj, blankNameSpace);
                 }
                 ret = true;
             }
@@ -38,6 +47,14 @@ namespace TakeAsh {
                 Debug.Print(ex.Message);
             }
             return ret;
+        }
+
+        static public T readElement(XmlReader reader) {
+            return (T)serializer.Deserialize(reader);
+        }
+
+        static public void writeElement(XmlWriter writer, T value) {
+            serializer.Serialize(writer, value, blankNameSpace);
         }
     }
 }
