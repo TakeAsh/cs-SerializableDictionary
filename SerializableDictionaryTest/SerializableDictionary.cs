@@ -40,8 +40,6 @@ namespace TakeAsh {
 
         static TypeConverter keyConverter = TypeDescriptor.GetConverter(typeof(TKey));
         static TypeConverter valueConverter = TypeDescriptor.GetConverter(typeof(TValue));
-        static XmlSerializer keySerializer = new XmlSerializer(typeof(TKey));
-        static XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
 
         static private SerializeTypes _serializeType;
 
@@ -114,9 +112,9 @@ namespace TakeAsh {
                     XmlReader inner = reader.ReadSubtree();
 
                     inner.ReadToDescendant(keyElementName);
-                    TKey key = (TKey)keySerializer.Deserialize(inner);
+                    TKey key = XmlHelper<TKey>.readElement(inner);
 
-                    TValue value = (TValue)valueSerializer.Deserialize(inner);
+                    TValue value = XmlHelper<TValue>.readElement(inner);
                     
                     inner.Close();
 
@@ -132,9 +130,9 @@ namespace TakeAsh {
             foreach (TKey key in this.Keys) {
                 writer.WriteStartElement(itemElementName);
 
-                keySerializer.Serialize(writer, key);
+                XmlHelper<TKey>.writeElement(writer, key);
 
-                valueSerializer.Serialize(writer, this[key]);
+                XmlHelper<TValue>.writeElement(writer, this[key]);
 
                 writer.WriteEndElement();
             }
@@ -150,7 +148,7 @@ namespace TakeAsh {
 
                     XmlReader inner = reader.ReadSubtree();
                     inner.ReadToDescendant(keyElementName);
-                    TKey key = (TKey)keySerializer.Deserialize(inner);
+                    TKey key = XmlHelper<TKey>.readElement(inner);
                     inner.Close();
 
                     this.Add(key, value);
@@ -167,7 +165,7 @@ namespace TakeAsh {
 
                 writer.WriteAttributeString(valueValueAttributeName, this[key].ToString());
 
-                keySerializer.Serialize(writer, key);
+                XmlHelper<TKey>.writeElement(writer, key);
 
                 writer.WriteEndElement();
             }
@@ -183,7 +181,7 @@ namespace TakeAsh {
 
                     XmlReader inner = reader.ReadSubtree();
                     inner.ReadToDescendant(valueElementName);
-                    TValue value = (TValue)valueSerializer.Deserialize(inner);
+                    TValue value = XmlHelper<TValue>.readElement(inner);
                     inner.Close();
 
                     this.Add(key, value);
@@ -200,7 +198,7 @@ namespace TakeAsh {
 
                 writer.WriteAttributeString(keyValueAttributeName, key.ToString());
 
-                valueSerializer.Serialize(writer, this[key]);
+                XmlHelper<TValue>.writeElement(writer, this[key]);
 
                 writer.WriteEndElement();
             }
