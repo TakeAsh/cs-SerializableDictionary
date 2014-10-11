@@ -176,6 +176,27 @@ namespace SerializableDictionaryTest {
             };
             myData3a.export(filePathMyData3);
             var myData3b = MyData3.import(filePathMyData3);
+
+            string filePathMyData4 = @"../Data/SampleMyData4.log";
+            MyData4List myData4a = new MyData4[]{
+                new MyData4(){
+                    Name = "abc",
+                    Size = new Point(1.1, 2.2),
+                    Position = new Point(3.3, 4.4),
+                },
+                new MyData4(){
+                    Name = "def",
+                    Size = new Point(1.11, 2.22),
+                    Position = new Point(3.33, 4.44),
+                },
+                new MyData4(){
+                    Name = "ghi",
+                    Size = new Point(1.111, 2.222),
+                    Position = new Point(3.333, 4.444),
+                },
+            };
+            myData4a.export(filePathMyData4);
+            var myData4b = MyData4List.import(filePathMyData4);
         }
     }
 }
