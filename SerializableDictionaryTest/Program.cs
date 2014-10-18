@@ -197,6 +197,49 @@ namespace SerializableDictionaryTest {
             };
             myData4a.export(filePathMyData4);
             var myData4b = MyData4List.import(filePathMyData4);
+
+            string filePathMyData5 = @"../Data/SampleMyData5.log";
+            var myData5a = (MyData5s)new MyData5[]{
+                new MyData5(){
+                    Position = MyData5.Positions.Floor4,
+                    Name = "Charlie",
+                    HitPoint = 300,
+                    Weapon = new Equipment(){
+                        Name= "Hammer",
+                        Owner = "Charlie",
+                    },
+                },
+                new MyData5(){
+                    Position = MyData5.Positions.Floor3,
+                    Name = "Bravo",
+                    HitPoint = 200,
+                    Weapon = new Equipment(){
+                        Name= "Mace",
+                        Owner = "Bravo",
+                    },
+                },
+                new MyData5(){
+                    Position = MyData5.Positions.FloorB1,
+                    Name = "Delta",
+                    HitPoint = 500,
+                    Weapon = new Equipment(){
+                        Name= "Sword",
+                        Owner = "Delta",
+                    },
+                },
+                new MyData5(){
+                    Position = MyData5.Positions.Floor1,
+                    Name = "Alpha",
+                    HitPoint = 100,
+                    Weapon = new Equipment(){
+                        Name= "Club",
+                        Owner = "Alpha",
+                    },
+                },
+            };
+            myData5a.export(filePathMyData5);
+            var myData5b = MyData5s.import(filePathMyData5);
+            var myData5c = (MyData5[])myData5a;
         }
     }
 }
