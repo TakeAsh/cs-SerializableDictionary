@@ -14,6 +14,7 @@ namespace TakeAsh {
         where TKey : IComparable
         where TItem : IGetKey<TKey> {
 
+        const string KeyTypeAttributeName = "KeyType";
         const string CountAttributeName = "Count";
 
         public ListableDictionary() : base() { }
@@ -54,6 +55,10 @@ namespace TakeAsh {
         }
 
         public void ReadXml(XmlReader reader) {
+            var keyTypeName = reader.GetAttribute(KeyTypeAttributeName);
+            if (keyTypeName != typeof(TKey).Name) {
+                throw new XmlException("KeyType mismatch");
+            }
             this.Clear();
             while (reader.Read()) {
                 if (reader.NodeType != XmlNodeType.EndElement) {
@@ -67,6 +72,7 @@ namespace TakeAsh {
         }
 
         public void WriteXml(XmlWriter writer) {
+            writer.WriteAttributeString(KeyTypeAttributeName, typeof(TKey).Name);
             writer.WriteAttributeString(CountAttributeName, this.Count.ToString());
             foreach(var item in ToArray()){
                 XmlHelper<TItem>.writeElement(writer, item);
