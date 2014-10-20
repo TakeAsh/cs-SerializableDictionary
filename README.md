@@ -5,14 +5,14 @@
 * based on [c# - Serialize Class containing Dictionary member - Stack Overflow](http://stackoverflow.com/questions/495647/).
 * When the key and/or the value can be converted from string, the key/value are serialized not as elements but as attributes.
 * Example1) SerializableDictionary&lt;double, string&gt;
-```
+```XML
 <?xml version="1.0" encoding="utf-8"?>
 <SerializableDictionary key_type="Double" value_type="String">
   <item key="0.1" value="Zero" />
   <item key="1.2" value="One" />
   <item key="2.3" value="Two" />
 </SerializableDictionary>
-```
+```XML
 * Example2) SerializableDictionary&lt;int, MyData2&gt; (MyData2 can convert from/to string.)
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -27,7 +27,7 @@
 
 * When the class has "getKey" method, exchange for a Dictionary with a List.
 * Example3) ListableDictionary&lt;Positions, MyData5&gt; (Positions is Enum. MyData5 has "getKey" method.)
-```
+```XML
 <?xml version="1.0" encoding="utf-8"?>
 <MyData5s KeyType="Positions" Count="4">
   <MyData5 Name="Alpha" Position="Floor1" HitPoint="100">
