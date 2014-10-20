@@ -12,9 +12,9 @@
   <item key="1.2" value="One" />
   <item key="2.3" value="Two" />
 </SerializableDictionary>
-```XML
-* Example2) SerializableDictionary&lt;int, MyData2&gt; (MyData2 can convert from/to string.)
 ```
+* Example2) SerializableDictionary&lt;int, MyData2&gt; (MyData2 can convert from/to string.)
+```XML
 <?xml version="1.0" encoding="utf-8"?>
 <SerializableDictionary key_type="Int32" value_type="MyData2">
   <item key="0" value="{ID:'0', Name:'Zero', RegisteredDate:'2014/10/20 01:59:26', Height:'170', }" />
