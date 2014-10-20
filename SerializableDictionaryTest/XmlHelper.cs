@@ -15,7 +15,7 @@ namespace TakeAsh {
             //IndentChars = ("  "),
             Encoding = Encoding.UTF8,
         };
-        static private Regex _regXmlHeader = new Regex(@"^(?<head1><\?xml\s+version=""[^""]+""\s+encoding="")utf-16(?<head2>""\s*\?>)");
+        static private Regex _regXmlHeader = new Regex(@"^(?<head1><\?xml\s+version=""[^""]+""\s+encoding="")[^""]+(?<head2>""\s*\?>)");
 
         static XmlHelper() {
             _blankNameSpace.Add("", "");
