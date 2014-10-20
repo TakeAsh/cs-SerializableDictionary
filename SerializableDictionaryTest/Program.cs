@@ -78,6 +78,9 @@ namespace SerializableDictionaryTest {
             MyData2 myData2 = (MyData2)myData2Converter.ConvertFromString(
                 "{ID:'100', Name:'山田', RegisteredDate:'2014-08-22', Height:'165.4', }"
             );
+            var myData2b = XmlHelper<MyData2>.convertToString(myData2);
+            Console.WriteLine(myData2b);
+            var myData2c = XmlHelper<MyData2>.convertFromString(myData2b);
 
             string filePathVV2 = @"../Data/SampleVV2.log";
             var dicVV2a = ieVV2.create(new kvpVV2[]{
@@ -240,6 +243,9 @@ namespace SerializableDictionaryTest {
             myData5a.export(filePathMyData5);
             var myData5b = MyData5s.import(filePathMyData5);
             var myData5c = (MyData5[])myData5a;
+            var myData5d = XmlHelper<MyData5s>.convertToString(myData5a);
+            Console.WriteLine(myData5d);
+            var myData5e = XmlHelper<MyData5s>.convertFromString(myData5d);
         }
     }
 }
