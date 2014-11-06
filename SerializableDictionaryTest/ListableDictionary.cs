@@ -10,16 +10,22 @@ namespace TakeAsh {
         TKey getKey();
     }
 
-    public class ListableDictionary<TKey, TItem> : Dictionary<TKey, TItem>, IXmlSerializable
+    public class ListableDictionary<TKey, TItem> : Dictionary<TKey, TItem>, IXmlSerializable, IGetKey<string>
         where TKey : IComparable
         where TItem : IGetKey<TKey> {
 
+        const string NameAttributeName = "Name";
         const string KeyTypeAttributeName = "KeyType";
         const string CountAttributeName = "Count";
 
-        public ListableDictionary() : base() { }
+        public virtual string Name { get; set; }
 
-        public ListableDictionary(TItem[] items) : base() {
+        public ListableDictionary(string Name = null) : base() {
+            this.Name = Name;
+        }
+
+        public ListableDictionary(TItem[] items, string Name = null) : base() {
+            this.Name = Name;
             FromArray(items);
         }
 
@@ -48,6 +54,11 @@ namespace TakeAsh {
             return ret;
         }
 
+        public ListableDictionary<TKey, TItem> Add(TItem item) {
+            this[item.getKey()] = item;
+            return this;
+        }
+
         #region IXmlSerializable Members
 
         public System.Xml.Schema.XmlSchema GetSchema() {
@@ -55,6 +66,7 @@ namespace TakeAsh {
         }
 
         public void ReadXml(XmlReader reader) {
+            Name = reader.GetAttribute(NameAttributeName);
             var keyTypeName = reader.GetAttribute(KeyTypeAttributeName);
             if (keyTypeName != typeof(TKey).Name) {
                 throw new XmlException("KeyType mismatch");
@@ -72,11 +84,22 @@ namespace TakeAsh {
         }
 
         public void WriteXml(XmlWriter writer) {
+            if (Name != null) {
+                writer.WriteAttributeString(NameAttributeName, Name);
+            }
             writer.WriteAttributeString(KeyTypeAttributeName, typeof(TKey).Name);
             writer.WriteAttributeString(CountAttributeName, this.Count.ToString());
-            foreach(var item in ToArray()){
+            foreach (var item in ToArray()) {
                 XmlHelper<TItem>.writeElement(writer, item);
             }
+        }
+
+        #endregion
+
+        #region IGetKey member
+
+        public string getKey() {
+            return Name;
         }
 
         #endregion
