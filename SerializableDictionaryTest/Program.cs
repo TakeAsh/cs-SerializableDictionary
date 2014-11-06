@@ -246,6 +246,72 @@ namespace SerializableDictionaryTest {
             var myData5d = XmlHelper<MyData5s>.convertToString(myData5a);
             Console.WriteLine(myData5d);
             var myData5e = XmlHelper<MyData5s>.convertFromString(myData5d);
+
+            string filePathMyData6 = @"../Data/SampleMyData6.log";
+            var myData6a = new MyData6() {
+                new MyData6Device(MyData6Device.Devices.Camera){
+                    new MyData6Channel(MyData6Channel.Channels.Red){
+                        new MyData6Item(255, 100),
+                        new MyData6Item(127, 50),
+                        new MyData6Item(63, 25),
+                        new MyData6Item(0, 0),
+                    },
+                    new MyData6Channel(MyData6Channel.Channels.Green){
+                        new MyData6Item(255, 90),
+                        new MyData6Item(127, 35),
+                        new MyData6Item(63, 10),
+                        new MyData6Item(0, 0),
+                    },
+                    new MyData6Channel(MyData6Channel.Channels.Blue){
+                        new MyData6Item(255, 95),
+                        new MyData6Item(127, 60),
+                        new MyData6Item(63, 35),
+                        new MyData6Item(0, 5),
+                    },
+                },
+                new MyData6Device(MyData6Device.Devices.Monitor){
+                    new MyData6Channel(MyData6Channel.Channels.Blue){
+                        new MyData6Item(255, 95),
+                        new MyData6Item(127, 60),
+                        new MyData6Item(63, 35),
+                        new MyData6Item(0, 5),
+                    },
+                    new MyData6Channel(MyData6Channel.Channels.Green){
+                        new MyData6Item(255, 90),
+                        new MyData6Item(127, 35),
+                        new MyData6Item(63, 10),
+                        new MyData6Item(0, 0),
+                    },
+                    new MyData6Channel(MyData6Channel.Channels.Red){
+                        new MyData6Item(255, 100),
+                        new MyData6Item(127, 50),
+                        new MyData6Item(63, 25),
+                        new MyData6Item(0, 0),
+                    },
+                },
+                new MyData6Device(MyData6Device.Devices.Scanner){
+                    new MyData6Channel(MyData6Channel.Channels.Red){
+                        new MyData6Item(255, 100),
+                        new MyData6Item(127, 50),
+                        new MyData6Item(63, 25),
+                        new MyData6Item(0, 0),
+                    },
+                    new MyData6Channel(MyData6Channel.Channels.Blue){
+                        new MyData6Item(255, 95),
+                        new MyData6Item(127, 60),
+                        new MyData6Item(63, 35),
+                        new MyData6Item(0, 5),
+                    },
+                    new MyData6Channel(MyData6Channel.Channels.Green){
+                        new MyData6Item(255, 90),
+                        new MyData6Item(127, 35),
+                        new MyData6Item(63, 10),
+                        new MyData6Item(0, 0),
+                    },
+                },
+            };
+            myData6a.export(filePathMyData6);
+            var myData6b = MyData6.import(filePathMyData6);
         }
     }
 }
