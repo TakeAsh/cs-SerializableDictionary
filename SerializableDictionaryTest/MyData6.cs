@@ -79,51 +79,14 @@ namespace SerializableDictionaryTest {
     }
 
     [XmlRoot("Device")]
-    public class MyData6Device : ListableDictionary<MyData6Channel.Channels, MyData6Channel>, IGetKey<MyData6Device.Devices> {
-        public enum Devices {
-            Monitor, Scanner, Camera,
-        }
-
-        static public Devices[] DeviceValues {
-            get { return (Devices[])Enum.GetValues(typeof(Devices)); }
-        }
-
-        static public string[] DeviceNames {
-            get { return Enum.GetNames(typeof(Devices)); }
-        }
-
-        public Devices Device { get; set; }
-
-        public override string Name {
-            get { return Device.ToString(); }
-            set {
-                Device = default(Devices);
-                if (String.IsNullOrEmpty(value)) {
-                    return;
-                }
-                var index = Array.IndexOf(DeviceNames, value);
-                if (index >= 0) {
-                    Device = DeviceValues[index];
-                }
-            }
-        }
+    public class MyData6Device : ListableDictionary<MyData6Channel.Channels, MyData6Channel> {
 
         public MyData6Device() : base() { }
 
-        public MyData6Device(Devices Device) : base() {
-            this.Device = Device;
-        }
-
-        #region IGetKey member
-
-        public new Devices getKey() {
-            return Device;
-        }
-
-        #endregion
+        public MyData6Device(string Name) : base(Name) { }
     }
 
-    public class MyData6 : ListableDictionary<MyData6Device.Devices, MyData6Device> {
+    public class MyData6 : ListableDictionary<string, MyData6Device> {
         static public MyData6 import(string fileName) {
             return XmlHelper<MyData6>.importFile(fileName);
         }

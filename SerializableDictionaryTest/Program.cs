@@ -249,7 +249,7 @@ namespace SerializableDictionaryTest {
 
             string filePathMyData6 = @"../Data/SampleMyData6.log";
             var myData6a = new MyData6() {
-                new MyData6Device(MyData6Device.Devices.Camera){
+                new MyData6Device("Camera"){
                     new MyData6Channel(MyData6Channel.Channels.Red){
                         new MyData6Item(255, 100),
                         new MyData6Item(127, 50),
@@ -269,7 +269,7 @@ namespace SerializableDictionaryTest {
                         new MyData6Item(0, 5),
                     },
                 },
-                new MyData6Device(MyData6Device.Devices.Monitor){
+                new MyData6Device("Monitor"){
                     new MyData6Channel(MyData6Channel.Channels.Blue){
                         new MyData6Item(255, 95),
                         new MyData6Item(127, 60),
@@ -289,7 +289,7 @@ namespace SerializableDictionaryTest {
                         new MyData6Item(0, 0),
                     },
                 },
-                new MyData6Device(MyData6Device.Devices.Scanner){
+                new MyData6Device("Scanner"){
                     new MyData6Channel(MyData6Channel.Channels.Red){
                         new MyData6Item(255, 100),
                         new MyData6Item(127, 50),
