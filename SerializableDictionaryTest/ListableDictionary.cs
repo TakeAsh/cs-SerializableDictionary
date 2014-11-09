@@ -1,32 +1,66 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace TakeAsh {
-    public interface IGetKey<TKey> {
+    public interface IListableDictionariable<TKey> {
         TKey getKey();
+        void setKey(TKey key);
     }
 
-    public class ListableDictionary<TKey, TItem> : Dictionary<TKey, TItem>, IXmlSerializable, IGetKey<string>
+    public class ListableDictionary<TKey, TItem> :
+        Dictionary<TKey, TItem>, IXmlSerializable, IListableDictionariable<string>
         where TKey : IComparable
-        where TItem : IGetKey<TKey> {
+        where TItem : IListableDictionariable<TKey>, new() {
 
         const string NameAttributeName = "Name";
         const string KeyTypeAttributeName = "KeyType";
         const string CountAttributeName = "Count";
 
-        public virtual string Name { get; set; }
+        static protected bool _autoNewItem = true;
 
-        public ListableDictionary(string Name = null) : base() {
-            this.Name = Name;
+        /// <summary>
+        /// add new item with the key, when the key don't exit.
+        /// </summary>
+        /// <remarks>
+        /// to disable this feature.
+        /// <code>
+        /// class delivered : ListableDictionary {
+        ///     static delivered() {
+        ///         AutoNewItem = false;
+        ///     }
+        /// }
+        /// </code>
+        /// </remarks>
+        static protected bool AutoNewItem {
+            get { return _autoNewItem; }
+            set { _autoNewItem = value; }
         }
 
-        public ListableDictionary(TItem[] items, string Name = null) : base() {
-            this.Name = Name;
+        public virtual string Name { get; set; }
+
+        public ListableDictionary(string name = null) : base() {
+            this.Name = name;
+        }
+
+        public ListableDictionary(TItem[] items, string name = null) : base() {
+            this.Name = name;
             FromArray(items);
+        }
+
+        public new TItem this[TKey key] {
+            get {
+                if (AutoNewItem && !base.ContainsKey(key)) {
+                    var item = new TItem();
+                    item.setKey(key);
+                    base[key] = item;
+                }
+                return base[key];
+            }
+            set { base[key] = value; }
         }
 
         static public explicit operator ListableDictionary<TKey, TItem>(TItem[] source) {
@@ -61,11 +95,11 @@ namespace TakeAsh {
 
         #region IXmlSerializable Members
 
-        public System.Xml.Schema.XmlSchema GetSchema() {
+        public virtual XmlSchema GetSchema() {
             return null;
         }
 
-        public void ReadXml(XmlReader reader) {
+        public virtual void ReadXml(XmlReader reader) {
             Name = reader.GetAttribute(NameAttributeName);
             var keyTypeName = reader.GetAttribute(KeyTypeAttributeName);
             if (keyTypeName != typeof(TKey).Name) {
@@ -83,7 +117,7 @@ namespace TakeAsh {
             }
         }
 
-        public void WriteXml(XmlWriter writer) {
+        public virtual void WriteXml(XmlWriter writer) {
             if (Name != null) {
                 writer.WriteAttributeString(NameAttributeName, Name);
             }
@@ -96,10 +130,14 @@ namespace TakeAsh {
 
         #endregion
 
-        #region IGetKey member
+        #region IListableDictionariable members
 
         public string getKey() {
             return Name;
+        }
+
+        public void setKey(string name) {
+            this.Name = name;
         }
 
         #endregion
