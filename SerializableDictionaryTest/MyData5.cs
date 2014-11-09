@@ -8,7 +8,7 @@ using TakeAsh;
 using System.Text.RegularExpressions;
 
 namespace SerializableDictionaryTest {
-    public class MyData5 : IGetKey<MyData5.Positions> {
+    public class MyData5 : IListableDictionariable<MyData5.Positions> {
 
         public enum Positions {
             Floor1,
@@ -46,10 +46,14 @@ namespace SerializableDictionaryTest {
                 ", Weapon:{" + Weapon + "}";
         }
 
-        #region IGetKey Member
+        #region IListableDictionariable members
 
         public Positions getKey() {
             return Position;
+        }
+
+        public void setKey(MyData5.Positions Position) {
+            this.Position = Position;
         }
 
         #endregion

@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 namespace SerializableDictionaryTest {
 
     [XmlRoot("Item")]
-    public class MyData6Item : IGetKey<int> {
+    public class MyData6Item : IListableDictionariable<int> {
 
         [XmlAttribute]
         public int Index { get; set; }
@@ -24,17 +24,21 @@ namespace SerializableDictionaryTest {
             this.Value = Value;
         }
 
-        #region IGetKey member
+        #region IListableDictionariable members
 
         public int getKey() {
             return Index;
+        }
+
+        public void setKey(int Index) {
+            this.Index = Index;
         }
 
         #endregion
     }
 
     [XmlRoot("Channel")]
-    public class MyData6Channel : ListableDictionary<int, MyData6Item>, IGetKey<MyData6Channel.Channels> {
+    public class MyData6Channel : ListableDictionary<int, MyData6Item>, IListableDictionariable<MyData6Channel.Channels> {
         public enum Channels {
             Red, Green, Blue,
         }
@@ -69,10 +73,14 @@ namespace SerializableDictionaryTest {
             this.Channel = Channel;
         }
 
-        #region IGetKey member
+        #region IListableDictionariable members
 
         public new Channels getKey() {
             return Channel;
+        }
+
+        public void setKey(MyData6Channel.Channels Channel) {
+            this.Channel = Channel;
         }
 
         #endregion
