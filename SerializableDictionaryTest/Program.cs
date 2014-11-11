@@ -312,6 +312,7 @@ namespace SerializableDictionaryTest {
             };
             myData6a["Camera"].Size = "8\"";
             myData6a["Monitor"].MakerID = 1000;
+            myData6a["Scanner"].ID = "SomeID";
             myData6a.export(filePathMyData6);
             var myData6b = MyData6.import(filePathMyData6);
             myData6a["Printer"][MyData6Channel.Channels.Blue].Add(new MyData6Item(255, 100));

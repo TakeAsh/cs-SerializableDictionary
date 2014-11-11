@@ -11,6 +11,32 @@ namespace TakeAsh {
         void setKey(TKey key);
     }
 
+    public class ListableDictionaryExtraElementManager {
+
+        static private XmlSerializerNamespaces _blankNameSpace = new XmlSerializerNamespaces();
+
+        private XmlSerializer _serializer;
+
+        public string Name { get; private set; }
+
+        static ListableDictionaryExtraElementManager() {
+            _blankNameSpace.Add("", "");
+        }
+
+        public ListableDictionaryExtraElementManager(Type type, string name) {
+            this.Name = name;
+            this._serializer = new XmlSerializer(type, new XmlRootAttribute(name));
+        }
+
+        public object Deserialize(XmlReader reader) {
+            return _serializer.Deserialize(reader);
+        }
+
+        public void Serialize(XmlWriter writer, object obj) {
+            _serializer.Serialize(writer, obj, _blankNameSpace);
+        }
+    }
+
     public class ListableDictionary<TKey, TItem> :
         Dictionary<TKey, TItem>, IXmlSerializable, IListableDictionariable<string>
         where TKey : IComparable
@@ -54,6 +80,10 @@ namespace TakeAsh {
         static protected string[] ExtraAttributeNames { get; set; }
 
         protected virtual Dictionary<string, string> ExtraAttributes { get; set; }
+
+        static protected ListableDictionaryExtraElementManager ExtraElementManager { get; set; }
+
+        protected virtual object ExtraElement { get; set; }
 
         public virtual string Name { get; set; }
 
@@ -105,6 +135,9 @@ namespace TakeAsh {
                     }
                 }
             }
+            if (ExtraElement != null) {
+                ret += ", " + ExtraElement;
+            }
             return ret;
         }
 
@@ -149,6 +182,17 @@ namespace TakeAsh {
                 }
             }
             this.Clear();
+            if (ExtraElementManager != null) {
+                reader.Read();
+                if (reader.NodeType != XmlNodeType.EndElement) {
+                    if (reader.Name == ExtraElementManager.Name) {
+                        ExtraElement = ExtraElementManager.Deserialize(reader.ReadSubtree());
+                    } else {
+                        var item = XmlHelper<TItem>.readElement(reader.ReadSubtree());
+                        this[item.getKey()] = item;
+                    }
+                }
+            }
             while (reader.Read()) {
                 if (reader.NodeType != XmlNodeType.EndElement) {
                     var item = XmlHelper<TItem>.readElement(reader.ReadSubtree());
@@ -174,6 +218,9 @@ namespace TakeAsh {
                         writer.WriteAttributeString(key, val);
                     }
                 }
+            }
+            if (ExtraElementManager != null && ExtraElement != null) {
+                ExtraElementManager.Serialize(writer, ExtraElement);
             }
             foreach (var item in ToArray()) {
                 XmlHelper<TItem>.writeElement(writer, item);

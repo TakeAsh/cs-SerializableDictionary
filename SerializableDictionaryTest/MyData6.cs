@@ -92,6 +92,8 @@ namespace SerializableDictionaryTest {
         const string SizeAttributeName = "Size";
         const string MakerIDAttributeName = "MakerID";
 
+        const string OptionElementName = "Option";
+
         private int _makerID;
 
         [XmlAttribute]  // XmlAttribute don't work
@@ -111,16 +113,55 @@ namespace SerializableDictionaryTest {
             }
         }
 
+        private MyData6DeviceExtra Option {
+            get { return (MyData6DeviceExtra)base.ExtraElement; }
+            set { base.ExtraElement = value; }
+        }
+
+        public string ID {
+            get {
+                if (Option == null) {
+                    Option = new MyData6DeviceExtra();
+                }
+                return Option.ID;
+            }
+            set {
+                if (Option == null) {
+                    Option = new MyData6DeviceExtra();
+                }
+                Option.ID = value;
+            }
+        }
+
         static MyData6Device() {
             ExtraAttributeNames = new string[]{
                 SizeAttributeName,
                 MakerIDAttributeName,
             };
+            ExtraElementManager = new ListableDictionaryExtraElementManager(
+                typeof(MyData6DeviceExtra),
+                OptionElementName
+            );
         }
 
         public MyData6Device() : base() { }
 
         public MyData6Device(string Name) : base(Name) { }
+    }
+
+    public class MyData6DeviceExtra {
+        [XmlAttribute]
+        public string ID { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public MyData6DeviceExtra() {
+            CreateDate = DateTime.Now;
+        }
+
+        public override string ToString() {
+            return "ID:'" + ID + "', CreateDate:{" + CreateDate + "}";
+        }
     }
 
     public class MyData6 : ListableDictionary<string, MyData6Device> {
