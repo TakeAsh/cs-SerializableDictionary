@@ -40,13 +40,34 @@ namespace TakeAsh {
             set { _autoNewItem = value; }
         }
 
+        /// <summary>
+        /// Extra Attribute Names
+        /// </summary>
+        /// <remarks>
+        /// When this property is not null,
+        /// <list type="bullet">
+        /// <item>ReadXml() use this as attribute names, and set them into ExtraAttributes.</item>
+        /// <item>WriteXml() use this as attribute names, and output them from ExtraAttributes.</item>
+        /// <item>ToString() output not only "Name" and "Count" but also ExtraAttributes.</item>
+        /// </list>
+        /// </remarks>
+        static protected string[] ExtraAttributeNames { get; set; }
+
+        protected virtual Dictionary<string, string> ExtraAttributes { get; set; }
+
         public virtual string Name { get; set; }
 
         public ListableDictionary(string name = null) : base() {
+            if (ExtraAttributeNames != null) {
+                ExtraAttributes = new Dictionary<string, string>();
+            }
             this.Name = name;
         }
 
         public ListableDictionary(TItem[] items, string name = null) : base() {
+            if (ExtraAttributeNames != null) {
+                ExtraAttributes = new Dictionary<string, string>();
+            }
             this.Name = name;
             FromArray(items);
         }
@@ -69,6 +90,22 @@ namespace TakeAsh {
 
         static public explicit operator TItem[](ListableDictionary<TKey, TItem> source) {
             return source.ToArray();
+        }
+
+        public override string ToString() {
+            var ret = "";
+            if (!String.IsNullOrEmpty(Name)) {
+                ret += NameAttributeName + ":'" + Name + "', ";
+            }
+            ret += CountAttributeName + ":" + this.Count;
+            if (ExtraAttributeNames != null) {
+                foreach (var key in ExtraAttributeNames) {
+                    if (ExtraAttributes.ContainsKey(key)) {
+                        ret += ", " + key + ":'" + ExtraAttributes[key] + "'";
+                    }
+                }
+            }
+            return ret;
         }
 
         public void FromArray(TItem[] items) {
@@ -105,6 +142,12 @@ namespace TakeAsh {
             if (keyTypeName != typeof(TKey).Name) {
                 throw new XmlException("KeyType mismatch");
             }
+            if (ExtraAttributeNames != null) {
+                ExtraAttributes = new Dictionary<string, string>();
+                foreach (var key in ExtraAttributeNames) {
+                    ExtraAttributes[key] = reader.GetAttribute(key);
+                }
+            }
             this.Clear();
             while (reader.Read()) {
                 if (reader.NodeType != XmlNodeType.EndElement) {
@@ -123,6 +166,15 @@ namespace TakeAsh {
             }
             writer.WriteAttributeString(KeyTypeAttributeName, typeof(TKey).Name);
             writer.WriteAttributeString(CountAttributeName, this.Count.ToString());
+            if (ExtraAttributeNames != null) {
+                foreach (var key in ExtraAttributeNames) {
+                    string val;
+                    if (ExtraAttributes.ContainsKey(key) &&
+                        (val = ExtraAttributes[key]) != null) {
+                        writer.WriteAttributeString(key, val);
+                    }
+                }
+            }
             foreach (var item in ToArray()) {
                 XmlHelper<TItem>.writeElement(writer, item);
             }

@@ -89,6 +89,35 @@ namespace SerializableDictionaryTest {
     [XmlRoot("Device")]
     public class MyData6Device : ListableDictionary<MyData6Channel.Channels, MyData6Channel> {
 
+        const string SizeAttributeName = "Size";
+        const string MakerIDAttributeName = "MakerID";
+
+        private int _makerID;
+
+        [XmlAttribute]  // XmlAttribute don't work
+        public string Size {
+            get { return ExtraAttributes[SizeAttributeName]; }
+            set { ExtraAttributes[SizeAttributeName] = value; }
+        }
+
+        public int MakerID {
+            get {
+                int.TryParse(ExtraAttributes[MakerIDAttributeName], out _makerID);
+                return _makerID;
+            }
+            set {
+                _makerID = value;
+                ExtraAttributes[MakerIDAttributeName] = _makerID.ToString();
+            }
+        }
+
+        static MyData6Device() {
+            ExtraAttributeNames = new string[]{
+                SizeAttributeName,
+                MakerIDAttributeName,
+            };
+        }
+
         public MyData6Device() : base() { }
 
         public MyData6Device(string Name) : base(Name) { }
