@@ -48,22 +48,12 @@ namespace TakeAsh {
         const string KeyTypeAttributeName = "KeyType";
         const string CountAttributeName = "Count";
 
-        static protected bool _autoNewItem = true;
+        private bool _autoNewItem = true;
 
         /// <summary>
         /// add new item with the key, when the key don't exit.
         /// </summary>
-        /// <remarks>
-        /// to disable this feature.
-        /// <code>
-        /// class delivered : ListableDictionary {
-        ///     static delivered() {
-        ///         AutoNewItem = false;
-        ///     }
-        /// }
-        /// </code>
-        /// </remarks>
-        static protected bool AutoNewItem {
+        public bool AutoNewItem {
             get { return _autoNewItem; }
             set { _autoNewItem = value; }
         }
