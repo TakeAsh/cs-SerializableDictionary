@@ -143,6 +143,22 @@ namespace TakeAsh {
             return ret;
         }
 
+        static public ListableDictionary<TKey, TItem> FromXml(string xml) {
+            return XmlHelper<ListableDictionary<TKey, TItem>>.convertFromString(xml);
+        }
+
+        public virtual string ToXml() {
+            return XmlHelper<ListableDictionary<TKey, TItem>>.convertToString(this);
+        }
+
+        static public ListableDictionary<TKey, TItem> import(string fileName) {
+            return XmlHelper<ListableDictionary<TKey, TItem>>.importFile(fileName);
+        }
+
+        public virtual bool export(string fileName) {
+            return XmlHelper<ListableDictionary<TKey, TItem>>.exportFile(fileName, this);
+        }
+
         public void FromArray(TItem[] items) {
             this.Clear();
             foreach (var item in items) {
