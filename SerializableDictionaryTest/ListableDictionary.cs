@@ -89,17 +89,17 @@ namespace TakeAsh {
 
         public virtual string Name { get; set; }
 
-        public ListableDictionary(string name = null) : base() {
+        public ListableDictionary() : base() {
             if (ExtraAttributeNames != null) {
                 ExtraAttributes = new Dictionary<string, string>();
             }
+        }
+
+        public ListableDictionary(string name = null) : this() {
             this.Name = name;
         }
 
-        public ListableDictionary(TItem[] items, string name = null) : base() {
-            if (ExtraAttributeNames != null) {
-                ExtraAttributes = new Dictionary<string, string>();
-            }
+        public ListableDictionary(TItem[] items, string name = null) : this() {
             this.Name = name;
             FromArray(items);
         }
