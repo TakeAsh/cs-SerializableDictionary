@@ -27,7 +27,7 @@ namespace TakeAsh {
             this.Name = !String.IsNullOrEmpty(name) ?
                 name :
                 type.Name;
-            this._serializer = new XmlSerializer(type, new XmlRootAttribute(name));
+            this._serializer = new XmlSerializer(type, new XmlRootAttribute(this.Name));
         }
 
         public object Deserialize(XmlReader reader) {
