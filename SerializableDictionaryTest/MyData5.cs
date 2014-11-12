@@ -97,11 +97,11 @@ namespace SerializableDictionaryTest {
             return new MyData5s(source);
         }
 
-        static public MyData5s import(string fileName) {
+        static public new MyData5s import(string fileName) {
             return XmlHelper<MyData5s>.importFile(fileName);
         }
 
-        public bool export(string fileName) {
+        public override bool export(string fileName) {
             return XmlHelper<MyData5s>.exportFile(fileName, this);
         }
     }

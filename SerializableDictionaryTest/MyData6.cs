@@ -165,11 +165,11 @@ namespace SerializableDictionaryTest {
     }
 
     public class MyData6 : ListableDictionary<string, MyData6Device> {
-        static public MyData6 import(string fileName) {
+        static public new MyData6 import(string fileName) {
             return XmlHelper<MyData6>.importFile(fileName);
         }
 
-        public bool export(string fileName) {
+        public override bool export(string fileName) {
             return XmlHelper<MyData6>.exportFile(fileName, this);
         }
     }
