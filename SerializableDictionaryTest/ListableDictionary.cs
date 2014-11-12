@@ -23,8 +23,10 @@ namespace TakeAsh {
             _blankNameSpace.Add("", "");
         }
 
-        public ListableDictionaryExtraElementManager(Type type, string name) {
-            this.Name = name;
+        public ListableDictionaryExtraElementManager(Type type, string name = null) {
+            this.Name = !String.IsNullOrEmpty(name) ?
+                name :
+                type.Name;
             this._serializer = new XmlSerializer(type, new XmlRootAttribute(name));
         }
 
