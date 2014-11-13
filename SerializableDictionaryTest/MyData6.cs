@@ -24,6 +24,10 @@ namespace SerializableDictionaryTest {
             this.Value = Value;
         }
 
+        public override string ToString() {
+            return "Index:" + Index + ", Value:" + Value;
+        }
+
         #region IListableDictionariable members
 
         public int getKey() {

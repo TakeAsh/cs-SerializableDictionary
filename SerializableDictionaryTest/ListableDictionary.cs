@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
@@ -39,6 +40,8 @@ namespace TakeAsh {
         }
     }
 
+    [DebuggerDisplay("{{ToString(),nq}}")]
+    [DebuggerTypeProxy(typeof(ListableDictionary<,>.DebugView))]
     public class ListableDictionary<TKey, TItem> :
         Dictionary<TKey, TItem>, IXmlSerializable, IListableDictionariable<string>
         where TKey : IComparable
@@ -127,8 +130,8 @@ namespace TakeAsh {
                     }
                 }
             }
-            if (ExtraElement != null) {
-                ret += ", " + ExtraElement;
+            if (ExtraElementManager != null && ExtraElement != null) {
+                ret += ", " + ExtraElementManager.Name + ":{" + ExtraElement + "}";
             }
             return ret;
         }
@@ -186,7 +189,10 @@ namespace TakeAsh {
             if (ExtraAttributeNames != null) {
                 ExtraAttributes = new Dictionary<string, string>();
                 foreach (var key in ExtraAttributeNames) {
-                    ExtraAttributes[key] = reader.GetAttribute(key);
+                    var value = reader.GetAttribute(key);
+                    if (value != null) {
+                        ExtraAttributes[key] = value;
+                    }
                 }
             }
             this.Clear();
@@ -248,5 +254,78 @@ namespace TakeAsh {
         }
 
         #endregion
+
+        [DebuggerDisplay("{value}", Name = "{key}")]
+        internal class MyKeyValuePair<TKi, TVi> {
+            private TKi key;
+            private TVi value;
+
+            public MyKeyValuePair(TKi key, TVi value) {
+                this.value = value;
+                this.key = key;
+            }
+        }
+
+        internal class DebugView {
+
+            private ListableDictionary<TKey, TItem> _listableDictionary;
+
+            public DebugView(ListableDictionary<TKey, TItem> listableDictionary) {
+                this._listableDictionary = listableDictionary;
+            }
+
+            public bool AutoNewItem {
+                get { return _listableDictionary.AutoNewItem; }
+            }
+
+            private string ExtraAttributesString {
+                get {
+                    if (_listableDictionary.ExtraAttributes == null || _listableDictionary.ExtraAttributes.Count == 0) {
+                        return "null";
+                    }
+                    var attr = new string[_listableDictionary.ExtraAttributes.Count];
+                    var i = 0;
+                    foreach (var key in _listableDictionary.ExtraAttributes.Keys) {
+                        attr[i++] = key + ":'" + _listableDictionary.ExtraAttributes[key] + "'";
+                    }
+                    return String.Join(", ", attr);
+                }
+            }
+
+            [DebuggerDisplay("{ExtraAttributesString,nq}")]
+            public MyKeyValuePair<string, string>[] ExtraAttributes {
+                get {
+                    if (_listableDictionary.ExtraAttributes == null) {
+                        return null;
+                    }
+                    var ret = new MyKeyValuePair<string, string>[_listableDictionary.ExtraAttributes.Count];
+                    var i = 0;
+                    foreach (var key in _listableDictionary.ExtraAttributes.Keys) {
+                        ret[i++] = new MyKeyValuePair<string, string>(key, _listableDictionary.ExtraAttributes[key]);
+                    }
+                    return ret;
+                }
+            }
+
+            public object ExtraElement {
+                get { return _listableDictionary.ExtraElement; }
+            }
+
+            public string Name {
+                get { return _listableDictionary.Name; }
+            }
+
+            [DebuggerDisplay("Count:{Items.Length}")]
+            public MyKeyValuePair<TKey, TItem>[] Items {
+                get {
+                    var ret = new MyKeyValuePair<TKey, TItem>[_listableDictionary.Count];
+                    var i = 0;
+                    foreach (var key in _listableDictionary.Keys) {
+                        ret[i++] = new MyKeyValuePair<TKey, TItem>(key, _listableDictionary[key]);
+                    }
+                    return ret;
+                }
+            }
+        }
     }
 }
