@@ -318,6 +318,7 @@ namespace SerializableDictionaryTest {
             var myData6b = MyData6.import(filePathMyData6);
             var myData6c = MyData6.FromXml(myData6ax);
             myData6a["Printer"][MyData6Channel.Channels.Blue].Add(new MyData6Item(255, 100));
+            var myData6d = new MyData6() { Name = "d", };
         }
     }
 }

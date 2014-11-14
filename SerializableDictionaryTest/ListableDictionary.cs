@@ -82,6 +82,14 @@ namespace TakeAsh {
 
         public virtual string Name { get; set; }
 
+        public TKey[] SortedKeys {
+            get {
+                var keys = this.Keys.ToArray();
+                Array.Sort(keys);
+                return keys;
+            }
+        }
+
         public ListableDictionary() : base() {
             if (ExtraAttributeNames != null) {
                 ExtraAttributes = new Dictionary<string, string>();
@@ -123,12 +131,14 @@ namespace TakeAsh {
                 ret += NameAttributeName + ":'" + Name + "', ";
             }
             ret += CountAttributeName + ":" + this.Count;
-            if (ExtraAttributeNames != null) {
+            if (ExtraAttributeNames != null && ExtraAttributes.Count > 0) {
+                var attr = new List<string>(ExtraAttributes.Count);
                 foreach (var key in ExtraAttributeNames) {
                     if (ExtraAttributes.ContainsKey(key)) {
-                        ret += ", " + key + ":'" + ExtraAttributes[key] + "'";
+                        attr.Add("'" + key + "':'" + ExtraAttributes[key] + "'");
                     }
                 }
+                ret += ", ExtraAttribute:{" + String.Join(", ", attr) + "}";
             }
             if (ExtraElementManager != null && ExtraElement != null) {
                 ret += ", " + ExtraElementManager.Name + ":{" + ExtraElement + "}";
@@ -255,6 +265,8 @@ namespace TakeAsh {
 
         #endregion
 
+        #region DebuggerDisplay
+
         [DebuggerDisplay("{value}", Name = "{key}")]
         internal class MyKeyValuePair<TKi, TVi> {
             private TKi key;
@@ -278,17 +290,41 @@ namespace TakeAsh {
                 get { return _listableDictionary.AutoNewItem; }
             }
 
-            private string ExtraAttributesString {
+            private string ExtraAttributeNamesString {
                 get {
-                    if (_listableDictionary.ExtraAttributes == null || _listableDictionary.ExtraAttributes.Count == 0) {
+                    var extraAttributeNames = ListableDictionary<TKey, TItem>.ExtraAttributeNames;
+                    if (extraAttributeNames==null) {
                         return "null";
                     }
-                    var attr = new string[_listableDictionary.ExtraAttributes.Count];
-                    var i = 0;
-                    foreach (var key in _listableDictionary.ExtraAttributes.Keys) {
-                        attr[i++] = key + ":'" + _listableDictionary.ExtraAttributes[key] + "'";
+                    var ret = "Length:" + extraAttributeNames.Length;
+                    if (extraAttributeNames.Length > 0) {
+                        ret += ", {" + String.Join(", ", extraAttributeNames) + "}";
                     }
-                    return String.Join(", ", attr);
+                    return ret;
+                }
+            }
+
+            [DebuggerDisplay("{ExtraAttributeNamesString,nq}")]
+            public string[] ExtraAttributeNames {
+                get { return ListableDictionary<TKey, TItem>.ExtraAttributeNames; }
+            }
+
+            private string ExtraAttributesString {
+                get {
+                    var extraAttributes = _listableDictionary.ExtraAttributes;
+                    if (extraAttributes == null) {
+                        return "null";
+                    }
+                    var ret = "Count:" + extraAttributes.Count;
+                    if (extraAttributes.Count > 0) {
+                        var attr = new string[extraAttributes.Count];
+                        var i = 0;
+                        foreach (var key in extraAttributes.Keys) {
+                            attr[i++] = "'" + key + "':'" + extraAttributes[key] + "'";
+                        }
+                        ret += ", {" + String.Join(", ", attr) + "}";
+                    }
+                    return ret;
                 }
             }
 
@@ -315,8 +351,27 @@ namespace TakeAsh {
                 get { return _listableDictionary.Name; }
             }
 
-            [DebuggerDisplay("Count:{Items.Length}")]
-            public MyKeyValuePair<TKey, TItem>[] Items {
+            private string SortedKeysString {
+                get {
+                    var sortedKeys = _listableDictionary.SortedKeys;
+                    if (sortedKeys == null) {
+                        return "null";
+                    }
+                    var ret = "Length:" + sortedKeys.Length;
+                    if (sortedKeys.Length > 0) {
+                        ret += ", {" + String.Join(", ", sortedKeys) + "}";
+                    }
+                    return ret;
+                }
+            }
+
+            [DebuggerDisplay("{SortedKeysString,nq}")]
+            public TKey[] SortedKeys {
+                get { return _listableDictionary.SortedKeys; }
+            }
+
+            [DebuggerDisplay("Count:{_this.Length}")]
+            public MyKeyValuePair<TKey, TItem>[] _this {
                 get {
                     var ret = new MyKeyValuePair<TKey, TItem>[_listableDictionary.Count];
                     var i = 0;
@@ -327,5 +382,7 @@ namespace TakeAsh {
                 }
             }
         }
+
+        #endregion
     }
 }
