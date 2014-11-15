@@ -269,7 +269,11 @@ namespace TakeAsh {
 
         [DebuggerDisplay("{value}", Name = "{key}")]
         internal class MyKeyValuePair<TKi, TVi> {
+
+            [DebuggerBrowsable(DebuggerBrowsableState.Never)]
             private TKi key;
+
+            [DebuggerBrowsable(DebuggerBrowsableState.RootHidden)]
             private TVi value;
 
             public MyKeyValuePair(TKi key, TVi value) {
