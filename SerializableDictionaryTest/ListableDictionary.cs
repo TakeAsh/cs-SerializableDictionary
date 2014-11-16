@@ -208,6 +208,7 @@ namespace TakeAsh {
             this.Clear();
             if (ExtraElementManager != null) {
                 reader.Read();
+                while (reader.NodeType == XmlNodeType.Comment) { reader.Skip(); }
                 if (reader.NodeType != XmlNodeType.EndElement) {
                     if (reader.Name == ExtraElementManager.Name) {
                         ExtraElement = ExtraElementManager.Deserialize(reader.ReadSubtree());
@@ -218,6 +219,7 @@ namespace TakeAsh {
                 }
             }
             while (reader.Read()) {
+                while (reader.NodeType == XmlNodeType.Comment) { reader.Skip(); }
                 if (reader.NodeType != XmlNodeType.EndElement) {
                     var item = XmlHelper<TItem>.readElement(reader.ReadSubtree());
                     this[item.getKey()] = item;

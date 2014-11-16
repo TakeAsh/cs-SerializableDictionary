@@ -319,6 +319,79 @@ namespace SerializableDictionaryTest {
             var myData6c = MyData6.FromXml(myData6ax);
             myData6a["Printer"][MyData6Channel.Channels.Blue].Add(new MyData6Item(255, 100));
             var myData6d = new MyData6() { Name = "d", };
+            var myData6ex = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n" +
+                "<ListableDictionaryOfStringMyData6Device KeyType=\"String\" Count=\"3\">\r\n" +
+                "  <!-- comment -->" +
+                "  <Device Name=\"Camera\" KeyType=\"Channels\" Count=\"3\" Size=\"8&quot;\">\r\n" +
+                "    <!-- comment -->" +
+                "    <Channel Name=\"Red\" KeyType=\"Int32\" Count=\"4\">\r\n" +
+                "      <!-- comment -->" +
+                "      <Item Index=\"0\" Value=\"0\" />\r\n" +
+                "      <Item Index=\"63\" Value=\"25\" />\r\n" +
+                "      <Item Index=\"127\" Value=\"50\" />\r\n" +
+                "      <Item Index=\"255\" Value=\"100\" />\r\n" +
+                "      <!-- comment -->" +
+                "    </Channel>\r\n" +
+                "    <Channel Name=\"Green\" KeyType=\"Int32\" Count=\"4\">\r\n" +
+                "      <Item Index=\"0\" Value=\"0\" />\r\n" +
+                "      <Item Index=\"63\" Value=\"10\" />\r\n" +
+                "      <Item Index=\"127\" Value=\"35\" />\r\n" +
+                "      <Item Index=\"255\" Value=\"90\" />\r\n" +
+                "    </Channel>\r\n" +
+                "    <Channel Name=\"Blue\" KeyType=\"Int32\" Count=\"4\">\r\n" +
+                "      <Item Index=\"0\" Value=\"5\" />\r\n" +
+                "      <Item Index=\"63\" Value=\"35\" />\r\n" +
+                "      <Item Index=\"127\" Value=\"60\" />\r\n" +
+                "      <Item Index=\"255\" Value=\"95\" />\r\n" +
+                "    </Channel>\r\n" +
+                "  </Device>\r\n" +
+                "  <Device Name=\"Monitor\" KeyType=\"Channels\" Count=\"3\" MakerID=\"1000\">\r\n" +
+                "    <Channel Name=\"Red\" KeyType=\"Int32\" Count=\"4\">\r\n" +
+                "      <Item Index=\"0\" Value=\"0\" />\r\n" +
+                "      <Item Index=\"63\" Value=\"25\" />\r\n" +
+                "      <Item Index=\"127\" Value=\"50\" />\r\n" +
+                "      <Item Index=\"255\" Value=\"100\" />\r\n" +
+                "    </Channel>\r\n" +
+                "    <Channel Name=\"Green\" KeyType=\"Int32\" Count=\"4\">\r\n" +
+                "      <Item Index=\"0\" Value=\"0\" />\r\n" +
+                "      <Item Index=\"63\" Value=\"10\" />\r\n" +
+                "      <Item Index=\"127\" Value=\"35\" />\r\n" +
+                "      <Item Index=\"255\" Value=\"90\" />\r\n" +
+                "    </Channel>\r\n" +
+                "    <Channel Name=\"Blue\" KeyType=\"Int32\" Count=\"4\">\r\n" +
+                "      <Item Index=\"0\" Value=\"5\" />\r\n" +
+                "      <Item Index=\"63\" Value=\"35\" />\r\n" +
+                "      <Item Index=\"127\" Value=\"60\" />\r\n" +
+                "      <Item Index=\"255\" Value=\"95\" />\r\n" +
+                "    </Channel>\r\n" +
+                "  </Device>\r\n" +
+                "  <Device Name=\"Scanner\" KeyType=\"Channels\" Count=\"3\">\r\n" +
+                "    <!-- comment -->" +
+                "    <Option ID=\"SomeID\">\r\n" +
+                "      <CreateDate>2014-11-17T01:35:52.663294+09:00</CreateDate>\r\n" +
+                "    </Option>\r\n" +
+                "    <!-- comment -->" +
+                "    <Channel Name=\"Red\" KeyType=\"Int32\" Count=\"4\">\r\n" +
+                "      <Item Index=\"0\" Value=\"0\" />\r\n" +
+                "      <Item Index=\"63\" Value=\"25\" />\r\n" +
+                "      <Item Index=\"127\" Value=\"50\" />\r\n" +
+                "      <Item Index=\"255\" Value=\"100\" />\r\n" +
+                "    </Channel>\r\n" +
+                "    <Channel Name=\"Green\" KeyType=\"Int32\" Count=\"4\">\r\n" +
+                "      <Item Index=\"0\" Value=\"0\" />\r\n" +
+                "      <Item Index=\"63\" Value=\"10\" />\r\n" +
+                "      <Item Index=\"127\" Value=\"35\" />\r\n" +
+                "      <Item Index=\"255\" Value=\"90\" />\r\n" +
+                "    </Channel>\r\n" +
+                "    <Channel Name=\"Blue\" KeyType=\"Int32\" Count=\"4\">\r\n" +
+                "      <Item Index=\"0\" Value=\"5\" />\r\n" +
+                "      <Item Index=\"63\" Value=\"35\" />\r\n" +
+                "      <Item Index=\"127\" Value=\"60\" />\r\n" +
+                "      <Item Index=\"255\" Value=\"95\" />\r\n" +
+                "    </Channel>\r\n" +
+                "  </Device>\r\n" +
+                "</ListableDictionaryOfStringMyData6Device>";
+            var myData6e = MyData6.FromXml(myData6ex);
         }
     }
 }
