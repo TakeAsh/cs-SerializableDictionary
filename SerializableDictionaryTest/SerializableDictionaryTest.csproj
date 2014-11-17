@@ -50,6 +50,7 @@
     <Compile Include="MyData4.cs" />
     <Compile Include="MyData5.cs" />
     <Compile Include="MyData6.cs" />
+    <Compile Include="MyData7.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

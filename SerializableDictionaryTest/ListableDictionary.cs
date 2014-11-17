@@ -61,6 +61,31 @@ namespace TakeAsh {
             set { _autoNewItem = value; }
         }
 
+        static private bool _sortByItem;
+
+        /// <summary>
+        /// sort by item, when ToArray()
+        /// </summary>
+        /// <remarks>
+        /// <list type="bullet">
+        /// <item>true: sort by item</item>
+        /// <item>false: sort by key</item>
+        /// </list>
+        /// TItem must be either IComparable&lt;TItem&gt; or IComparable.
+        /// </remarks>
+        static protected bool SortByItem {
+            get { return _sortByItem; }
+            set {
+                if (value && !typeof(TItem).GetInterfaces().Any(
+                    x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IComparable<>) ||
+                        x == typeof(IComparable))
+                ) {
+                    throw new ArgumentException("must be either IComparable<TItem> or IComparable", "TItem");
+                }
+                _sortByItem = value;
+            }
+        }
+
         /// <summary>
         /// Extra Attribute Names
         /// </summary>
@@ -170,18 +195,19 @@ namespace TakeAsh {
         }
 
         public TItem[] ToArray() {
-            var keys = this.Keys.ToArray();
-            Array.Sort(keys);
+            var keys = this.SortedKeys;
             var ret = new TItem[keys.Length];
             for (var i = 0; i < keys.Length; ++i) {
                 ret[i] = this[keys[i]];
             }
+            if (SortByItem) {
+                Array.Sort(ret);
+            }
             return ret;
         }
 
-        public ListableDictionary<TKey, TItem> Add(TItem item) {
+        public virtual void Add(TItem item) {
             this[item.getKey()] = item;
-            return this;
         }
 
         #region IXmlSerializable Members
@@ -214,7 +240,7 @@ namespace TakeAsh {
                         ExtraElement = ExtraElementManager.Deserialize(reader.ReadSubtree());
                     } else {
                         var item = XmlHelper<TItem>.readElement(reader.ReadSubtree());
-                        this[item.getKey()] = item;
+                        this.Add(item);
                     }
                 }
             }
@@ -222,7 +248,7 @@ namespace TakeAsh {
                 while (reader.NodeType == XmlNodeType.Comment) { reader.Skip(); }
                 if (reader.NodeType != XmlNodeType.EndElement) {
                     var item = XmlHelper<TItem>.readElement(reader.ReadSubtree());
-                    this[item.getKey()] = item;
+                    this.Add(item);
                 } else {
                     reader.Skip();
                     break;

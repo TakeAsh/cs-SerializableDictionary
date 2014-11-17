@@ -392,6 +392,19 @@ namespace SerializableDictionaryTest {
                 "  </Device>\r\n" +
                 "</ListableDictionaryOfStringMyData6Device>";
             var myData6e = MyData6.FromXml(myData6ex);
+
+            var myData7a = new MyData7() {
+                new MyData7Item("A"),
+                new MyData7Item("B"),
+                new MyData7Item("C"),
+                new MyData7Item("D"),
+                new MyData7Item("E"),
+            };
+            myData7a["B"].Index = 20;
+            myData7a["C"].Index = -1;
+            myData7a["D"].Index = 10;
+            var myData7ax = myData7a.ToXml();
+            var myData7b = MyData7.FromXml(myData7ax);
         }
     }
 }
