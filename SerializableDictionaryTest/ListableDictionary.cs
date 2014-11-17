@@ -80,7 +80,10 @@ namespace TakeAsh {
                     x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IComparable<>) ||
                         x == typeof(IComparable))
                 ) {
-                    throw new ArgumentException("must be either IComparable<TItem> or IComparable", "TItem");
+                    throw new ArgumentException(
+                        typeof(TItem).Name + " must be either IComparable<" + typeof(TItem).Name + "> or IComparable",
+                        typeof(TItem).Name
+                    );
                 }
                 _sortByItem = value;
             }
