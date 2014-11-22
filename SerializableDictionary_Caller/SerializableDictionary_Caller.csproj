@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B369A160-51BD-4607-AE4E-49BED2575334}</ProjectGuid>
+    <ProjectGuid>{7CA287EC-FB8C-4A10-868C-0D62B75DDD77}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SerializableDictionaryTest</RootNamespace>
-    <AssemblyName>SerializableDictionaryTest</AssemblyName>
+    <RootNamespace>SerializableDictionary_Caller</RootNamespace>
+    <AssemblyName>SerializableDictionary_Caller</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,7 +28,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="ImExPorter.cs" />
     <Compile Include="MyData1.cs" />
+    <Compile Include="MyData2.cs" />
     <Compile Include="MyData3.cs" />
     <Compile Include="MyData4.cs" />
     <Compile Include="MyData5.cs" />
@@ -53,7 +54,6 @@
     <Compile Include="Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MyData2.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SerializableDictionary\SerializableDictionary.csproj">

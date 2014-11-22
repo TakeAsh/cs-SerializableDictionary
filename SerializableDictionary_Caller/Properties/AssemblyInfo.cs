@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("SerializableDictionaryTest")]
+[assembly: AssemblyTitle("SerializableDictionary_Caller")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("MouseComputer PC")]
-[assembly: AssemblyProduct("SerializableDictionaryTest")]
-[assembly: AssemblyCopyright("Copyright © MouseComputer PC 2014")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("SerializableDictionary_Caller")]
+[assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 次の GUID は、このプロジェクトが COM に公開される場合の、typelib の ID です
-[assembly: Guid("dd03ee7b-f30f-4d33-9850-039f5d70032d")]
+[assembly: Guid("94a07e9a-905a-45fb-8f64-1d33d57ad01a")]
 
 // アセンブリのバージョン情報は、以下の 4 つの値で構成されています:
 //

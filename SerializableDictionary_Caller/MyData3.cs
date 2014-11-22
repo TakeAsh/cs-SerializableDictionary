@@ -6,7 +6,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using TakeAsh;
 
-namespace SerializableDictionaryTest {
+namespace SerializableDictionary_Caller {
     public class MyData3 {
         public enum RGBTypes {
             R, G, B,

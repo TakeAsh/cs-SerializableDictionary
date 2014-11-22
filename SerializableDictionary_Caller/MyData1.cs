@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SerializableDictionaryTest {
+namespace SerializableDictionary_Caller {
     public class MyData1 {
         public int ID { get; set; }
         public string Name { get; set; }

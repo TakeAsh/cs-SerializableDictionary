@@ -6,7 +6,7 @@ using TakeAsh;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace SerializableDictionaryTest {
+namespace SerializableDictionary_Caller {
     public class MyData7 : ListableDictionary<string, MyData7Item> {
 
         static MyData7() {

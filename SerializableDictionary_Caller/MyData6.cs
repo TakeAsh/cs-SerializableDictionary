@@ -6,7 +6,7 @@ using TakeAsh;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace SerializableDictionaryTest {
+namespace SerializableDictionary_Caller {
 
     [XmlRoot("Item")]
     public class MyData6Item : IListableDictionariable<int> {

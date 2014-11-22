@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 using TakeAsh;
 using System.Text.RegularExpressions;
 
-namespace SerializableDictionaryTest {
+namespace SerializableDictionary_Caller {
     public class MyData5 : IListableDictionariable<MyData5.Positions> {
 
         public enum Positions {

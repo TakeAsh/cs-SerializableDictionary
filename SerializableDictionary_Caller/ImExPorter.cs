@@ -7,7 +7,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using TakeAsh;
 
-namespace SerializableDictionaryTest {
+namespace SerializableDictionary_Caller {
     public class ImExPorter<TKey, TValue> {
 
         public static SerializableDictionary<TKey, TValue> create(KeyValuePair<TKey, TValue>[] source) {

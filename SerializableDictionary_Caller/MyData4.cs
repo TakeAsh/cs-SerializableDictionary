@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 using TakeAsh;
 
-namespace SerializableDictionaryTest {
+namespace SerializableDictionary_Caller {
     public class MyData4 {
 
         private Point _position;

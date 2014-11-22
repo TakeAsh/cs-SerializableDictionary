@@ -5,7 +5,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using TakeAsh;
 
-namespace SerializableDictionaryTest {
+namespace SerializableDictionary_Caller {
     [TypeConverter(typeof(StringifyConverter<Point>))]
     public struct Point : IStringify<Point> {
         static private Regex regXY = new Regex(@"^\s*(?<X>[\-\+\d\.eE]+)\s*,\s*(?<Y>[\-\+\d\.eE]+)\s*$");

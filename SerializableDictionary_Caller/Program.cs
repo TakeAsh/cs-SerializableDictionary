@@ -2,31 +2,31 @@
 using System.ComponentModel;
 using TakeAsh;
 
-using ieVV1 = SerializableDictionaryTest.ImExPorter<int, string>;
+using ieVV1 = SerializableDictionary_Caller.ImExPorter<int, string>;
 using kvpVV1 = System.Collections.Generic.KeyValuePair<int, string>;
 
-using ieVR1 = SerializableDictionaryTest.ImExPorter<int, SerializableDictionaryTest.MyData1>;
-using kvpVR1 = System.Collections.Generic.KeyValuePair<int, SerializableDictionaryTest.MyData1>;
+using ieVR1 = SerializableDictionary_Caller.ImExPorter<int, SerializableDictionary_Caller.MyData1>;
+using kvpVR1 = System.Collections.Generic.KeyValuePair<int, SerializableDictionary_Caller.MyData1>;
 
-using ieRV1 = SerializableDictionaryTest.ImExPorter<SerializableDictionaryTest.MyData1, int>;
-using kvpRV1 = System.Collections.Generic.KeyValuePair<SerializableDictionaryTest.MyData1, int>;
+using ieRV1 = SerializableDictionary_Caller.ImExPorter<SerializableDictionary_Caller.MyData1, int>;
+using kvpRV1 = System.Collections.Generic.KeyValuePair<SerializableDictionary_Caller.MyData1, int>;
 
-using ieRR1 = SerializableDictionaryTest.ImExPorter<SerializableDictionaryTest.MyData1, SerializableDictionaryTest.MyData1>;
-using kvpRR1 = System.Collections.Generic.KeyValuePair<SerializableDictionaryTest.MyData1, SerializableDictionaryTest.MyData1>;
+using ieRR1 = SerializableDictionary_Caller.ImExPorter<SerializableDictionary_Caller.MyData1, SerializableDictionary_Caller.MyData1>;
+using kvpRR1 = System.Collections.Generic.KeyValuePair<SerializableDictionary_Caller.MyData1, SerializableDictionary_Caller.MyData1>;
 
-using ieVV2 = SerializableDictionaryTest.ImExPorter<double, string>;
+using ieVV2 = SerializableDictionary_Caller.ImExPorter<double, string>;
 using kvpVV2 = System.Collections.Generic.KeyValuePair<double, string>;
 
-using ieVR2 = SerializableDictionaryTest.ImExPorter<int, SerializableDictionaryTest.MyData2>;
-using kvpVR2 = System.Collections.Generic.KeyValuePair<int, SerializableDictionaryTest.MyData2>;
+using ieVR2 = SerializableDictionary_Caller.ImExPorter<int, SerializableDictionary_Caller.MyData2>;
+using kvpVR2 = System.Collections.Generic.KeyValuePair<int, SerializableDictionary_Caller.MyData2>;
 
-using ieRV2 = SerializableDictionaryTest.ImExPorter<SerializableDictionaryTest.MyData2, int>;
-using kvpRV2 = System.Collections.Generic.KeyValuePair<SerializableDictionaryTest.MyData2, int>;
+using ieRV2 = SerializableDictionary_Caller.ImExPorter<SerializableDictionary_Caller.MyData2, int>;
+using kvpRV2 = System.Collections.Generic.KeyValuePair<SerializableDictionary_Caller.MyData2, int>;
 
-using ieRR2 = SerializableDictionaryTest.ImExPorter<SerializableDictionaryTest.MyData2, SerializableDictionaryTest.MyData2>;
-using kvpRR2 = System.Collections.Generic.KeyValuePair<SerializableDictionaryTest.MyData2, SerializableDictionaryTest.MyData2>;
+using ieRR2 = SerializableDictionary_Caller.ImExPorter<SerializableDictionary_Caller.MyData2, SerializableDictionary_Caller.MyData2>;
+using kvpRR2 = System.Collections.Generic.KeyValuePair<SerializableDictionary_Caller.MyData2, SerializableDictionary_Caller.MyData2>;
 
-namespace SerializableDictionaryTest {
+namespace SerializableDictionary_Caller {
     class Program {
         static void Main(string[] args) {
             string filePathVV1 = @"../Data/SampleVV1.log";

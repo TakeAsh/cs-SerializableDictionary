@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Text.RegularExpressions;
 using TakeAsh;
 
-namespace SerializableDictionaryTest {
+namespace SerializableDictionary_Caller {
     [TypeConverter(typeof(StringifyConverter<MyData2>))]
     public class MyData2 : IStringify<MyData2> {
         static Regex regInner = new Regex(@"^\s*\{\s*(?<inner>.*)\s*\}\s*$");
