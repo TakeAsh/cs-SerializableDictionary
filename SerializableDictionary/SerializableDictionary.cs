@@ -55,6 +55,22 @@ namespace TakeAsh {
             _serializeType = (SerializeTypes)((keyCanStringify ? 2 : 0) + (valueCanStringify ? 1 : 0));
         }
 
+        static public SerializableDictionary<TKey, TValue> FromXml(string xml) {
+            return XmlHelper<SerializableDictionary<TKey, TValue>>.convertFromString(xml);
+        }
+
+        public virtual string ToXml() {
+            return XmlHelper<SerializableDictionary<TKey, TValue>>.convertToString(this);
+        }
+
+        static public SerializableDictionary<TKey, TValue> import(string fileName) {
+            return XmlHelper<SerializableDictionary<TKey, TValue>>.importFile(fileName);
+        }
+
+        public virtual bool export(string fileName) {
+            return XmlHelper<SerializableDictionary<TKey, TValue>>.exportFile(fileName, this);
+        }
+
         #region IXmlSerializable Members
 
         public XmlSchema GetSchema() {
