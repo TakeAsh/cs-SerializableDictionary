@@ -47,6 +47,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializableDictionaryTest_VV.cs" />
     <Compile Include="SerializableDictionaryTest_VR.cs" />
+    <Compile Include="SerializableDictionaryTest_RV.cs" />
+    <Compile Include="SerializableDictionaryTest_RR.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SerializableDictionary\SerializableDictionary.csproj">
