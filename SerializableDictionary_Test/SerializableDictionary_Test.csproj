@@ -55,6 +55,7 @@
     <Compile Include="MyData2_RV_Test.cs" />
     <Compile Include="MyData2_RR_Test.cs" />
     <Compile Include="MyData3_Test.cs" />
+    <Compile Include="MyData4_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SerializableDictionary\SerializableDictionary.csproj">
