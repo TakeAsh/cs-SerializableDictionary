@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
-using NUnit.Framework;
-using TakeAsh;
 using System.Text.RegularExpressions;
+using NUnit.Framework;
+using SerializableDictionary_Caller;
+using TakeAsh;
 
 using ieRR1 = SerializableDictionary_Caller.ImExPorter<SerializableDictionary_Caller.MyData1, SerializableDictionary_Caller.MyData1>;
 using kvpRR1 = System.Collections.Generic.KeyValuePair<SerializableDictionary_Caller.MyData1, SerializableDictionary_Caller.MyData1>;
@@ -14,7 +15,7 @@ namespace SerializableDictionary_Test {
 
         private Regex _regRegDate = new Regex(@"\{\{RegisteredDate\}\}");
 
-        private SerializableDictionary<SerializableDictionary_Caller.MyData1, SerializableDictionary_Caller.MyData1> _dicRR1a;
+        private SerializableDictionary<MyData1, MyData1> _dicRR1a;
 
         private string _dicRR1aXml =
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n" +
@@ -76,16 +77,16 @@ namespace SerializableDictionary_Test {
 
             _dicRR1a = ieRR1.create(new kvpRR1[]{
                 new kvpRR1(
-                    new SerializableDictionary_Caller.MyData1(){ ID=0, Name="Zero", RegisteredDate=_regDate, Height=170.0, },
-                    new SerializableDictionary_Caller.MyData1(){ ID=10, Name="AZero", RegisteredDate=_regDate, Height=175.1, }
+                    new MyData1(){ ID=0, Name="Zero", RegisteredDate=_regDate, Height=170.0, },
+                    new MyData1(){ ID=10, Name="AZero", RegisteredDate=_regDate, Height=175.1, }
                 ),
                 new kvpRR1(
-                    new SerializableDictionary_Caller.MyData1(){ ID=1, Name="One", RegisteredDate=_regDate, Height=160.0, },
-                    new SerializableDictionary_Caller.MyData1(){ ID=11, Name="AOne", RegisteredDate=_regDate, Height=165.1, }
+                    new MyData1(){ ID=1, Name="One", RegisteredDate=_regDate, Height=160.0, },
+                    new MyData1(){ ID=11, Name="AOne", RegisteredDate=_regDate, Height=165.1, }
                 ),
                 new kvpRR1(
-                    new SerializableDictionary_Caller.MyData1(){ ID=2, Name="Two", RegisteredDate=_regDate, Height=165.0, },
-                    new SerializableDictionary_Caller.MyData1(){ ID=12, Name="ATwo", RegisteredDate=_regDate, Height=170.1, }
+                    new MyData1(){ ID=2, Name="Two", RegisteredDate=_regDate, Height=165.0, },
+                    new MyData1(){ ID=12, Name="ATwo", RegisteredDate=_regDate, Height=170.1, }
                 ),
             });
 
@@ -100,7 +101,7 @@ namespace SerializableDictionary_Test {
 
         [TestCase]
         public void RR_FromXml() {
-            var actual = SerializableDictionary<SerializableDictionary_Caller.MyData1, SerializableDictionary_Caller.MyData1>.FromXml(_dicRR1aXml);
+            var actual = SerializableDictionary<MyData1, MyData1>.FromXml(_dicRR1aXml);
             Assert.AreEqual(_dicRR1aXml, actual.ToXml());
         }
 
@@ -116,7 +117,7 @@ namespace SerializableDictionary_Test {
 
         [TestCase]
         public void RR_import() {
-            var actual = SerializableDictionary<SerializableDictionary_Caller.MyData1, SerializableDictionary_Caller.MyData1>.import(_filePathRR1);
+            var actual = SerializableDictionary<MyData1, MyData1>.import(_filePathRR1);
             Assert.AreEqual(_dicRR1aXml, actual.ToXml());
         }
     }

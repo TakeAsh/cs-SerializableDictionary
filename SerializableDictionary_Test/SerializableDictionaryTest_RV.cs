@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
-using NUnit.Framework;
-using TakeAsh;
 using System.Text.RegularExpressions;
+using NUnit.Framework;
+using SerializableDictionary_Caller;
+using TakeAsh;
 
 using ieRV1 = SerializableDictionary_Caller.ImExPorter<SerializableDictionary_Caller.MyData1, int>;
 using kvpRV1 = System.Collections.Generic.KeyValuePair<SerializableDictionary_Caller.MyData1, int>;
@@ -14,7 +15,7 @@ namespace SerializableDictionary_Test {
 
         private Regex _regRegDate = new Regex(@"\{\{RegisteredDate\}\}");
 
-        private SerializableDictionary<SerializableDictionary_Caller.MyData1, int> _dicRV1a;
+        private SerializableDictionary<MyData1, int> _dicRV1a;
 
         private string _dicRV1aXml =
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n" +
@@ -57,9 +58,9 @@ namespace SerializableDictionary_Test {
             _regDateString = _regDate.ToString("o").Replace(".0000000", "");
 
             _dicRV1a = ieRV1.create(new kvpRV1[]{
-                new kvpRV1(new SerializableDictionary_Caller.MyData1(){ ID=0, Name="Zero", RegisteredDate=_regDate, Height=170.0, }, 0),
-                new kvpRV1(new SerializableDictionary_Caller.MyData1(){ ID=1, Name="One", RegisteredDate=_regDate, Height=160.0, }, 1),
-                new kvpRV1(new SerializableDictionary_Caller.MyData1(){ ID=2, Name="Two", RegisteredDate=_regDate, Height=165.0, }, 2),
+                new kvpRV1(new MyData1(){ ID=0, Name="Zero", RegisteredDate=_regDate, Height=170.0, }, 0),
+                new kvpRV1(new MyData1(){ ID=1, Name="One", RegisteredDate=_regDate, Height=160.0, }, 1),
+                new kvpRV1(new MyData1(){ ID=2, Name="Two", RegisteredDate=_regDate, Height=165.0, }, 2),
             });
 
             _dicRV1aXml = _regRegDate.Replace(_dicRV1aXml, _regDateString);
@@ -73,7 +74,7 @@ namespace SerializableDictionary_Test {
 
         [TestCase]
         public void VR_FromXml() {
-            var actual = SerializableDictionary<SerializableDictionary_Caller.MyData1, int>.FromXml(_dicRV1aXml);
+            var actual = SerializableDictionary<MyData1, int>.FromXml(_dicRV1aXml);
             Assert.AreEqual(_dicRV1aXml, actual.ToXml());
         }
 
@@ -89,7 +90,7 @@ namespace SerializableDictionary_Test {
 
         [TestCase]
         public void VR_import() {
-            var actual = SerializableDictionary<SerializableDictionary_Caller.MyData1, int>.import(_filePathRV1);
+            var actual = SerializableDictionary<MyData1, int>.import(_filePathRV1);
             Assert.AreEqual(_dicRV1aXml, actual.ToXml());
         }
     }

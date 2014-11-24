@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using NUnit.Framework;
-using TakeAsh;
 using System.ComponentModel;
+using NUnit.Framework;
 using SerializableDictionary_Caller;
+using TakeAsh;
 
 namespace SerializableDictionary_Test {
 
