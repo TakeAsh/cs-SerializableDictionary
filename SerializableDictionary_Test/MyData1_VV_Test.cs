@@ -9,7 +9,7 @@ using kvpVV1 = System.Collections.Generic.KeyValuePair<int, string>;
 namespace SerializableDictionary_Test {
 
     [TestFixture]
-    class SerializableDictionaryTest_VV {
+    class MyData1_VV_Test {
 
         private SerializableDictionary<int, string> _dicVV1a;
 

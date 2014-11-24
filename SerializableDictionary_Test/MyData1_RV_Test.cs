@@ -11,7 +11,7 @@ using kvpRV1 = System.Collections.Generic.KeyValuePair<SerializableDictionary_Ca
 namespace SerializableDictionary_Test {
 
     [TestFixture]
-    class SerializableDictionaryTest_RV {
+    class MyData1_RV_Test {
 
         private Regex _regRegDate = new Regex(@"\{\{RegisteredDate\}\}");
 

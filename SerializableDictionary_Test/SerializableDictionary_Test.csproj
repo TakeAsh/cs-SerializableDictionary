@@ -45,11 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MyData2Test.cs" />
-    <Compile Include="SerializableDictionaryTest_VV.cs" />
-    <Compile Include="SerializableDictionaryTest_VR.cs" />
-    <Compile Include="SerializableDictionaryTest_RV.cs" />
-    <Compile Include="SerializableDictionaryTest_RR.cs" />
+    <Compile Include="MyData2_Test.cs" />
+    <Compile Include="MyData1_VV_Test.cs" />
+    <Compile Include="MyData1_VR_Test.cs" />
+    <Compile Include="MyData1_RV_Test.cs" />
+    <Compile Include="MyData1_RR_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SerializableDictionary\SerializableDictionary.csproj">
