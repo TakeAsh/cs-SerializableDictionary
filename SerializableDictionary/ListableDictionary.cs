@@ -210,6 +210,9 @@ namespace TakeAsh {
         }
 
         public virtual void Add(TItem item) {
+            if (item == null) {
+                return;
+            }
             this[item.getKey()] = item;
         }
 
