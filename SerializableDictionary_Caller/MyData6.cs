@@ -108,8 +108,7 @@ namespace SerializableDictionary_Caller {
 
         public int MakerID {
             get {
-                int.TryParse(ExtraAttributes[MakerIDAttributeName], out _makerID);
-                return _makerID;
+                return _makerID = ExtraAttributes[MakerIDAttributeName].TryParse<int>();
             }
             set {
                 _makerID = value;

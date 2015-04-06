@@ -32,24 +32,18 @@ namespace SerializableDictionary_Caller {
             set {
                 switch (property) {
                     case "ID": {
-                            int tmp;
-                            int.TryParse(value, out tmp);
-                            ID = tmp;
+                            ID = value.TryParse<int>();
                         }
                         break;
                     case "Name":
                         Name = value;
                         break;
                     case "RegisteredDate": {
-                            DateTime tmp;
-                            DateTime.TryParse(value, out tmp);
-                            RegisteredDate = tmp;
+                            RegisteredDate = value.TryParse<DateTime>();
                         }
                         break;
                     case "Height": {
-                            double tmp;
-                            double.TryParse(value, out tmp);
-                            Height = tmp;
+                            Height = value.TryParse<double>();
                         }
                         break;
                     default:

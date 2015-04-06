@@ -31,11 +31,8 @@ namespace SerializableDictionary_Caller {
             }
             MatchCollection mcLab = regXY.Matches(source);
             if (mcLab.Count > 0) {
-                double x, y;
-                double.TryParse(mcLab[0].Groups["X"].Value, out x);
-                double.TryParse(mcLab[0].Groups["Y"].Value, out y);
-                this.X = x;
-                this.Y = y;
+                this.X = mcLab[0].Groups["X"].Value.TryParse<double>();
+                this.Y = mcLab[0].Groups["Y"].Value.TryParse<double>();
             }
             return this;
         }
