@@ -49,7 +49,7 @@ namespace SerializableDictionary_Test {
         DateTime _regDate;
         string _regDateString;
 
-        static string _filePathRV1 = @"../Data/SampleRV1.log";
+        static string _filePathRV1 = @"../../Data/SampleRV1.log";
 
         [SetUp]
         public void setup() {

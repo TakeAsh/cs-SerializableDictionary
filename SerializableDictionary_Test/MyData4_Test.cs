@@ -19,7 +19,7 @@ namespace SerializableDictionary_Test {
             "  <Item Name=\"ghi\" Size=\"1.111, 2.222\" Position=\"3.333, 4.444\" />\r\n" +
             "</MyData4List>";
 
-        static string _filePathMyData4 = @"../Data/SampleMyData4.log";
+        static string _filePathMyData4 = @"../../Data/SampleMyData4.log";
 
         [SetUp]
         public void setup() {

@@ -21,7 +21,7 @@ namespace SerializableDictionary_Test {
             "  <item key=\"2.3\" value=\"Two\" />\r\n" +
             "</SerializableDictionary>";
 
-        static string _filePathVV2 = @"../Data/SampleVV2.log";
+        static string _filePathVV2 = @"../../Data/SampleVV2.log";
 
         [SetUp]
         public void setup() {

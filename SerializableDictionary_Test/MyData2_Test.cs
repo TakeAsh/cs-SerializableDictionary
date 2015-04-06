@@ -10,7 +10,7 @@ namespace SerializableDictionary_Test {
     class MyData2_Test {
 
         static string _myData2stringIn = "{ID:'100', Name:'山田', RegisteredDate:'2014-08-22', Height:'165.4', }";
-        static string _myData2stringOut = "{ID:'100', Name:'山田', RegisteredDate:'2014/08/22 0:00:00', Height:'165.4', }";
+        static string _myData2stringOut = "{ID:'100', Name:'山田', RegisteredDate:'2014/08/22 00:00:00', Height:'165.4', }";
         static string _myData2xml = 
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n" +
             "<MyData2>\r\n" +

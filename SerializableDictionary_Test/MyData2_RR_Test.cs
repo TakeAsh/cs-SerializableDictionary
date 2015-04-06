@@ -28,7 +28,7 @@ namespace SerializableDictionary_Test {
         DateTime _regDate;
         string _regDateString;
 
-        static string _filePathRR2 = @"../Data/SampleRR2.log";
+        static string _filePathRR2 = @"../../Data/SampleRR2.log";
 
         [SetUp]
         public void setup() {

@@ -28,7 +28,7 @@ namespace SerializableDictionary_Test {
             "  </MyData5>\r\n" +
             "</MyData5s>";
 
-        static string _filePathMyData5 = @"../Data/SampleMyData5.log";
+        static string _filePathMyData5 = @"../../Data/SampleMyData5.log";
 
         [SetUp]
         public void setup() {

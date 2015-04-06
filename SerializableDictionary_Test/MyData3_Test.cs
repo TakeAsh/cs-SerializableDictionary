@@ -91,7 +91,7 @@ namespace SerializableDictionary_Test {
             "  </CMYK>\r\n" +
             "</MyData3>";
 
-        static string _filePathMyData3 = @"../Data/SampleMyData3.log";
+        static string _filePathMyData3 = @"../../Data/SampleMyData3.log";
 
         [SetUp]
         public void setup() {
