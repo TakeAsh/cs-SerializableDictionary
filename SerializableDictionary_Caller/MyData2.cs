@@ -22,7 +22,7 @@ namespace SerializableDictionary_Caller {
                     case "Name":
                         return Name;
                     case "RegisteredDate":
-                        return RegisteredDate.ToString("yyyy-MM-dd hh:mm:ss");
+                        return RegisteredDate.ToString("yyyy-MM-dd HH:mm:ss");
                     case "Height":
                         return Height.ToString();
                     default:
