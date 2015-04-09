@@ -33,13 +33,10 @@ namespace SerializableDictionary_Test {
 
         [TestCase]
         public void MyData7_SortByItem_Test() {
-            var myData7a = new MyData7() {
-                new MyData7Item("A"),
-                new MyData7Item("B"),
-                new MyData7Item("C"),
-                new MyData7Item("D"),
-                new MyData7Item("E"),
-            };
+            var names = new string[] { "A", "B", "C", "D", "E", };
+            var myData7a = new MyData7(
+                names.Select(name => new MyData7Item(name))
+            );
             Assert.AreEqual(_initialXml, myData7a.ToXml());
             myData7a["B"].Index = 20;
             myData7a["C"].Index = -1;

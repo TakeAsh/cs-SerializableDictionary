@@ -13,6 +13,10 @@ namespace SerializableDictionary_Caller {
             SortByItem = true;
         }
 
+        public MyData7() : base() { }
+
+        public MyData7(IEnumerable<MyData7Item> items) : base(items) { }
+
         public override void Add(MyData7Item item) {
             item.Index = Count;
             base.Add(item);

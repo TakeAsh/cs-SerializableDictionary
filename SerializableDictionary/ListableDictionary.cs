@@ -128,9 +128,9 @@ namespace TakeAsh {
             this.Name = name;
         }
 
-        public ListableDictionary(TItem[] items, string name = null) : this() {
+        public ListableDictionary(IEnumerable<TItem> items, string name = null) : this() {
             this.Name = name;
-            FromArray(items);
+            FromList(items);
         }
 
         public new TItem this[TKey key] {
@@ -190,6 +190,11 @@ namespace TakeAsh {
             return XmlHelper<ListableDictionary<TKey, TItem>>.exportFile(fileName, this);
         }
 
+        public void FromList(IEnumerable<TItem> items) {
+            this.Clear();
+            items.ToList().ForEach(item => Add(item));
+        }
+
         public IEnumerable<TItem> ToList() {
             return !SortByItem ?
                 SortedKeys.Select(key => this[key]) :
@@ -197,10 +202,7 @@ namespace TakeAsh {
         }
 
         public void FromArray(TItem[] items) {
-            this.Clear();
-            foreach (var item in items) {
-                this[item.getKey()] = item;
-            }
+            FromList(items);
         }
 
         public TItem[] ToArray() {
