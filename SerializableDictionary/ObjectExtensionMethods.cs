@@ -19,8 +19,10 @@ namespace TakeAsh {
         /// <param name="obj">object</param>
         /// <param name="valueIfNull">value if object is null</param>
         /// <returns>
+        /// <list type="table">
         /// <item><term>object is not null</term><description>object.ToString()</description></item>
         /// <item><term>object is null</term><description>valueIfNull</description></item>
+        /// </list>
         /// </returns>
         public static string SafeToString(this object obj, string valueIfNull = "") {
             return obj != null ?
