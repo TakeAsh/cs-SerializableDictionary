@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyData7_Test.cs" />
     <Compile Include="ObjectExtensionMethods_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MyData2_Test.cs" />

@@ -190,6 +190,12 @@ namespace TakeAsh {
             return XmlHelper<ListableDictionary<TKey, TItem>>.exportFile(fileName, this);
         }
 
+        public IEnumerable<TItem> ToList() {
+            return !SortByItem ?
+                SortedKeys.Select(key => this[key]) :
+                Keys.Select(key => this[key]).OrderBy(item => item);
+        }
+
         public void FromArray(TItem[] items) {
             this.Clear();
             foreach (var item in items) {
@@ -198,15 +204,7 @@ namespace TakeAsh {
         }
 
         public TItem[] ToArray() {
-            var keys = this.SortedKeys;
-            var ret = new TItem[keys.Length];
-            for (var i = 0; i < keys.Length; ++i) {
-                ret[i] = this[keys[i]];
-            }
-            if (SortByItem) {
-                Array.Sort(ret);
-            }
-            return ret;
+            return ToList().ToArray();
         }
 
         public virtual void Add(TItem item) {
