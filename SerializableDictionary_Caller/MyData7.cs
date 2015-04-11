@@ -7,7 +7,8 @@ using System.Xml;
 using System.Xml.Serialization;
 
 namespace SerializableDictionary_Caller {
-    public class MyData7 : ListableDictionary<string, MyData7Item> {
+    public class MyData7 :
+        ListableDictionary<string, MyData7Item> {
 
         static MyData7() {
             SortByItem = true;
@@ -31,8 +32,16 @@ namespace SerializableDictionary_Caller {
         }
     }
 
+    public static class IEnumerableMyData7ItemExtensionMethods {
+        public static MyData7 ToMyData7(this IEnumerable<MyData7Item> items) {
+            return new MyData7(items);
+        }
+    }
+
     [XmlRoot("Item")]
-    public class MyData7Item : IListableDictionariable<string>, IComparable<MyData7Item> {
+    public class MyData7Item :
+        IListableDictionariable<string>,
+        IComparable<MyData7Item> {
 
         [XmlAttribute]
         public string Name { get; set; }

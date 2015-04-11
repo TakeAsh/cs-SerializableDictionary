@@ -31,12 +31,23 @@ namespace SerializableDictionary_Test {
             "  <Item Name=\"B\" />\r\n" +
             "</MyData7>";
 
+        private string[] _names = { "A", "B", "C", "D", "E", };
+
         [TestCase]
         public void MyData7_SortByItem_Test() {
-            var names = new string[] { "A", "B", "C", "D", "E", };
             var myData7a = new MyData7(
-                names.Select(name => new MyData7Item(name))
+                _names.Select(name => new MyData7Item(name))
             );
+            Assert.AreEqual(_initialXml, myData7a.ToXml());
+            myData7a["B"].Index = 20;
+            myData7a["C"].Index = -1;
+            myData7a["D"].Index = 10;
+            Assert.AreEqual(_expectedXml, myData7a.ToXml());
+        }
+
+        [TestCase]
+        public void MyData7_ToMyData7_Test() {
+            var myData7a = _names.Select(name => new MyData7Item(name)).ToMyData7();
             Assert.AreEqual(_initialXml, myData7a.ToXml());
             myData7a["B"].Index = 20;
             myData7a["C"].Index = -1;
