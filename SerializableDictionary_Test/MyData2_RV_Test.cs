@@ -33,7 +33,7 @@ namespace SerializableDictionary_Test {
         [SetUp]
         public void setup() {
             var now = DateTime.Now;
-            _regDate = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second);
+            _regDate = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0);
             _regDateString = _regDate.ToString().Replace(".0000000", "");
 
             _dicRV2a = ieRV2.create(new kvpRV2[]{
