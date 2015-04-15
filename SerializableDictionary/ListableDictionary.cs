@@ -192,6 +192,9 @@ namespace TakeAsh {
 
         public void FromList(IEnumerable<TItem> items) {
             this.Clear();
+            if (items == null) {
+                return;
+            }
             items.ToList().ForEach(item => Add(item));
         }
 
