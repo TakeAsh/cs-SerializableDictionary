@@ -14,8 +14,10 @@ namespace TakeAsh {
     /// <typeparam name="TKey">Type of Key</typeparam>
     /// <typeparam name="TValue">Type of Value</typeparam>
     [XmlRoot("SerializableDictionary")]
-    public class SerializableDictionary<TKey, TValue>
-    : Dictionary<TKey, TValue>, IXmlSerializable {
+    public class SerializableDictionary<TKey, TValue> :
+        Dictionary<TKey, TValue>,
+        IXmlSerializable,
+        IXmlHelper {
 
         public enum SerializeTypes {
             Element_Element,        // Key:Element, Value:Element
@@ -53,22 +55,6 @@ namespace TakeAsh {
             bool valueCanStringify = valueConverter.CanConvertFrom(typeof(string))
                 && valueConverter.CanConvertTo(typeof(string));
             _serializeType = (SerializeTypes)((keyCanStringify ? 2 : 0) + (valueCanStringify ? 1 : 0));
-        }
-
-        static public SerializableDictionary<TKey, TValue> FromXml(string xml) {
-            return XmlHelper<SerializableDictionary<TKey, TValue>>.convertFromString(xml);
-        }
-
-        public virtual string ToXml() {
-            return XmlHelper<SerializableDictionary<TKey, TValue>>.convertToString(this);
-        }
-
-        static public SerializableDictionary<TKey, TValue> import(string fileName) {
-            return XmlHelper<SerializableDictionary<TKey, TValue>>.importFile(fileName);
-        }
-
-        public virtual bool export(string fileName) {
-            return XmlHelper<SerializableDictionary<TKey, TValue>>.exportFile(fileName, this);
         }
 
         #region IXmlSerializable Members
@@ -131,7 +117,7 @@ namespace TakeAsh {
                     TKey key = XmlHelper<TKey>.readElement(inner);
 
                     TValue value = XmlHelper<TValue>.readElement(inner);
-                    
+
                     inner.Close();
 
                     this.Add(key, value);
@@ -251,6 +237,19 @@ namespace TakeAsh {
 
                 writer.WriteEndElement();
             }
+        }
+    }
+
+    public static class IEnumerableKeyValuePairExtensionMethods {
+
+        public static SerializableDictionary<TKey, TValue> ToSerializableDictionary<TKey, TValue>(
+            this IEnumerable<KeyValuePair<TKey, TValue>> source
+        ) {
+            var ret = new SerializableDictionary<TKey, TValue>();
+            foreach (var kvp in source) {
+                ret[kvp.Key] = kvp.Value;
+            }
+            return ret;
         }
     }
 }

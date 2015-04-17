@@ -43,7 +43,10 @@ namespace TakeAsh {
     [DebuggerDisplay("{{ToString(),nq}}")]
     [DebuggerTypeProxy(typeof(ListableDictionary<,>.DebugView))]
     public class ListableDictionary<TKey, TItem> :
-        Dictionary<TKey, TItem>, IXmlSerializable, IListableDictionariable<string>
+        Dictionary<TKey, TItem>,
+        IXmlSerializable,
+        IListableDictionariable<string>,
+        IXmlHelper
         where TKey : IComparable
         where TItem : IListableDictionariable<TKey>, new() {
 
@@ -172,22 +175,6 @@ namespace TakeAsh {
                 ret += ", " + ExtraElementManager.Name + ":{" + ExtraElement + "}";
             }
             return ret;
-        }
-
-        static public ListableDictionary<TKey, TItem> FromXml(string xml) {
-            return XmlHelper<ListableDictionary<TKey, TItem>>.convertFromString(xml);
-        }
-
-        public virtual string ToXml() {
-            return XmlHelper<ListableDictionary<TKey, TItem>>.convertToString(this);
-        }
-
-        static public ListableDictionary<TKey, TItem> import(string fileName) {
-            return XmlHelper<ListableDictionary<TKey, TItem>>.importFile(fileName);
-        }
-
-        public virtual bool export(string fileName) {
-            return XmlHelper<ListableDictionary<TKey, TItem>>.exportFile(fileName, this);
         }
 
         public void FromList(IEnumerable<TItem> items) {
@@ -425,5 +412,18 @@ namespace TakeAsh {
         }
 
         #endregion
+    }
+
+    public static class IEnumerableTItemExtensionMethods {
+
+        public static ListableDictionary<TKey, TItem> ToListableDictionary<TKey, TItem>(
+            this IEnumerable<TItem> items,
+            string name = null
+        )
+            where TKey : IComparable
+            where TItem : IListableDictionariable<TKey>, new() {
+
+            return new ListableDictionary<TKey, TItem>(items, name);
+        }
     }
 }
