@@ -5,7 +5,6 @@ using NUnit.Framework;
 using SerializableDictionary_Caller;
 using TakeAsh;
 
-using ieRV2 = SerializableDictionary_Caller.ImExPorter<SerializableDictionary_Caller.MyData2, int>;
 using kvpRV2 = System.Collections.Generic.KeyValuePair<SerializableDictionary_Caller.MyData2, int>;
 
 namespace SerializableDictionary_Test {
@@ -36,11 +35,11 @@ namespace SerializableDictionary_Test {
             _regDate = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0);
             _regDateString = _regDate.ToString().Replace(".0000000", "");
 
-            _dicRV2a = ieRV2.create(new kvpRV2[]{
+            _dicRV2a = new[]{
                 new kvpRV2(new MyData2(){ ID=0, Name="Zero", RegisteredDate=_regDate, Height=170.0, }, 0),
                 new kvpRV2(new MyData2(){ ID=1, Name="One", RegisteredDate=_regDate, Height=160.0, }, 1),
                 new kvpRV2(new MyData2(){ ID=2, Name="Two", RegisteredDate=_regDate, Height=165.0, }, 2),
-            });
+            }.ToSerializableDictionary();
 
             _dicRV2aXml = _regRegDate.Replace(_dicRV2aXml, _regDateString);
         }
@@ -53,13 +52,13 @@ namespace SerializableDictionary_Test {
 
         [TestCase]
         public void VR_FromXml() {
-            var actual = SerializableDictionary<MyData2, int>.FromXml(_dicRV2aXml);
+            var actual = (null as SerializableDictionary<MyData2, int>).FromXml(_dicRV2aXml);
             Assert.AreEqual(_dicRV2aXml, actual.ToXml());
         }
 
         [TestCase]
         public void VR_export() {
-            _dicRV2a.export(_filePathRV2);
+            _dicRV2a.Export(_filePathRV2);
             var actual = "";
             using (var reader = new StreamReader(_filePathRV2)) {
                 actual = reader.ReadToEnd();
@@ -69,7 +68,7 @@ namespace SerializableDictionary_Test {
 
         [TestCase]
         public void VR_import() {
-            var actual = SerializableDictionary<MyData2, int>.import(_filePathRV2);
+            var actual = (null as SerializableDictionary<MyData2, int>).Import(_filePathRV2);
             Assert.AreEqual(_dicRV2aXml, actual.ToXml());
         }
     }

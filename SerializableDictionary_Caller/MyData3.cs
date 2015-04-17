@@ -7,7 +7,9 @@ using System.Xml.Serialization;
 using TakeAsh;
 
 namespace SerializableDictionary_Caller {
-    public class MyData3 {
+    public class MyData3 :
+        IXmlHelper {
+
         public enum RGBTypes {
             R, G, B,
         }
@@ -19,13 +21,5 @@ namespace SerializableDictionary_Caller {
         public string Name { get; set; }
         public SerializableDictionary<RGBTypes, SerializableDictionary<int, double>> RGB { get; set; }
         public SerializableDictionary<CMYKTypes, SerializableDictionary<double, double>> CMYK { get; set; }
-
-        public bool export(string fileName) {
-            return XmlHelper<MyData3>.exportFile(fileName, this);
-        }
-
-        static public MyData3 import(string fileName) {
-            return XmlHelper<MyData3>.importFile(fileName);
-        }
     }
 }

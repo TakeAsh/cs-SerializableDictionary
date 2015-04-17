@@ -87,7 +87,9 @@ namespace SerializableDictionary_Caller {
         #endregion
     }
 
-    public class MyData5s : ListableDictionary<MyData5.Positions, MyData5> {
+    public class MyData5s :
+        ListableDictionary<MyData5.Positions, MyData5>,
+        IXmlHelper {
 
         public MyData5s() : base() { }
 
@@ -95,14 +97,6 @@ namespace SerializableDictionary_Caller {
 
         static public explicit operator MyData5s(MyData5[] source) {
             return new MyData5s(source);
-        }
-
-        static public new MyData5s import(string fileName) {
-            return XmlHelper<MyData5s>.importFile(fileName);
-        }
-
-        public override bool export(string fileName) {
-            return XmlHelper<MyData5s>.exportFile(fileName, this);
         }
     }
 }

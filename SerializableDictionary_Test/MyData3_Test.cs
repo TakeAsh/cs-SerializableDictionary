@@ -160,7 +160,7 @@ namespace SerializableDictionary_Test {
 
         [TestCase]
         public void MyData3Test_export() {
-            _myData3a.export(_filePathMyData3);
+            _myData3a.Export(_filePathMyData3);
             var actual = "";
             using (var reader = new StreamReader(_filePathMyData3)) {
                 actual = reader.ReadToEnd();
@@ -170,7 +170,7 @@ namespace SerializableDictionary_Test {
 
         [TestCase]
         public void MyData3Test_import() {
-            var actual = MyData3.import(_filePathMyData3);
+            var actual = (null as MyData3).Import(_filePathMyData3);
             Assert.AreEqual(_myData3aXml, XmlHelper<MyData3>.convertToString(actual));
         }
     }

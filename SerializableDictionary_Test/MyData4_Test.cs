@@ -57,7 +57,7 @@ namespace SerializableDictionary_Test {
 
         [TestCase]
         public void MyData4Test_export() {
-            _myData4a.export(_filePathMyData4);
+            _myData4a.Export(_filePathMyData4);
             var actual = "";
             using (var reader = new StreamReader(_filePathMyData4)) {
                 actual = reader.ReadToEnd();
@@ -68,7 +68,7 @@ namespace SerializableDictionary_Test {
         // SizeAttribute have a bug, and fail test
         //[TestCase]
         public void MyData4Test_import() {
-            var actual = MyData4List.import(_filePathMyData4);
+            var actual = (null as MyData4List).Import(_filePathMyData4);
             Assert.AreEqual(_myData4aXml, XmlHelper<MyData4List>.convertToString(actual));
         }
     }

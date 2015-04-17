@@ -60,7 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImExPorter.cs" />
     <Compile Include="MyData1.cs" />
     <Compile Include="MyData2.cs" />
     <Compile Include="MyData3.cs" />

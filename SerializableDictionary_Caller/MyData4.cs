@@ -40,7 +40,8 @@ namespace SerializableDictionary_Caller {
         }
     }
 
-    public class MyData4List {
+    public class MyData4List :
+        IXmlHelper {
 
         /// <summary>
         /// Actual array of MyData4
@@ -73,14 +74,6 @@ namespace SerializableDictionary_Caller {
 
         static public implicit operator MyData4List(MyData4[] source) {
             return new MyData4List(source);
-        }
-
-        public bool export(string fileName) {
-            return XmlHelper<MyData4List>.exportFile(fileName, this);
-        }
-
-        static public MyData4List import(string fileName) {
-            return XmlHelper<MyData4List>.importFile(fileName);
         }
     }
 }

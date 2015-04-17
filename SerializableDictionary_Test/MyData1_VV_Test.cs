@@ -3,7 +3,6 @@ using System.IO;
 using NUnit.Framework;
 using TakeAsh;
 
-using ieVV1 = SerializableDictionary_Caller.ImExPorter<int, string>;
 using kvpVV1 = System.Collections.Generic.KeyValuePair<int, string>;
 
 namespace SerializableDictionary_Test {
@@ -25,11 +24,11 @@ namespace SerializableDictionary_Test {
 
         [SetUp]
         public void setup() {
-            _dicVV1a = ieVV1.create(new kvpVV1[]{
+            _dicVV1a = new[]{
                 new kvpVV1(0, "Zero"),
                 new kvpVV1(1, "One"),
                 new kvpVV1(2, "Two"),
-            });
+            }.ToSerializableDictionary();
         }
 
         [TestCase]
@@ -40,13 +39,13 @@ namespace SerializableDictionary_Test {
 
         [TestCase]
         public void VV_FromXml() {
-            var actual = SerializableDictionary<int, string>.FromXml(_dicVV1aXml);
+            var actual = (null as SerializableDictionary<int, string>).FromXml(_dicVV1aXml);
             Assert.AreEqual(_dicVV1aXml, actual.ToXml());
         }
 
         [TestCase]
         public void VV_export() {
-            _dicVV1a.export(_filePathVV1);
+            _dicVV1a.Export(_filePathVV1);
             var actual = "";
             using (var reader = new StreamReader(_filePathVV1)) {
                 actual = reader.ReadToEnd();
@@ -56,7 +55,7 @@ namespace SerializableDictionary_Test {
 
         [TestCase]
         public void VV_import() {
-            var actual = ieVV1.import(_filePathVV1);
+            var actual = (null as SerializableDictionary<int, string>).Import(_filePathVV1);
             Assert.AreEqual(_dicVV1aXml, actual.ToXml());
         }
     }

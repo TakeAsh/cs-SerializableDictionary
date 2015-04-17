@@ -87,7 +87,7 @@ namespace SerializableDictionary_Test {
 
         [TestCase]
         public void MyData5Test_export() {
-            _myData5a.export(_filePathMyData5);
+            _myData5a.Export(_filePathMyData5);
             var actual = "";
             using (var reader = new StreamReader(_filePathMyData5)) {
                 actual = reader.ReadToEnd();
@@ -97,7 +97,7 @@ namespace SerializableDictionary_Test {
 
         [TestCase]
         public void MyData5Test_import() {
-            var actual = MyData5s.import(_filePathMyData5);
+            var actual = (null as MyData5s).Import(_filePathMyData5);
             Assert.AreEqual(_myData5aXml, XmlHelper<MyData5s>.convertToString(actual));
         }
     }

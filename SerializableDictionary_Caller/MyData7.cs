@@ -8,7 +8,8 @@ using System.Xml.Serialization;
 
 namespace SerializableDictionary_Caller {
     public class MyData7 :
-        ListableDictionary<string, MyData7Item> {
+        ListableDictionary<string, MyData7Item>,
+        IXmlHelper {
 
         static MyData7() {
             SortByItem = true;
@@ -21,14 +22,6 @@ namespace SerializableDictionary_Caller {
         public override void Add(MyData7Item item) {
             item.Index = Count;
             base.Add(item);
-        }
-
-        public override string ToXml() {
-            return XmlHelper<MyData7>.convertToString(this);
-        }
-
-        static public new MyData7 FromXml(string xml) {
-            return XmlHelper<MyData7>.convertFromString(xml);
         }
     }
 

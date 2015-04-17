@@ -2,62 +2,54 @@
 using System.ComponentModel;
 using TakeAsh;
 
-using ieVV1 = SerializableDictionary_Caller.ImExPorter<int, string>;
 using kvpVV1 = System.Collections.Generic.KeyValuePair<int, string>;
 
-using ieVR1 = SerializableDictionary_Caller.ImExPorter<int, SerializableDictionary_Caller.MyData1>;
 using kvpVR1 = System.Collections.Generic.KeyValuePair<int, SerializableDictionary_Caller.MyData1>;
 
-using ieRV1 = SerializableDictionary_Caller.ImExPorter<SerializableDictionary_Caller.MyData1, int>;
 using kvpRV1 = System.Collections.Generic.KeyValuePair<SerializableDictionary_Caller.MyData1, int>;
 
-using ieRR1 = SerializableDictionary_Caller.ImExPorter<SerializableDictionary_Caller.MyData1, SerializableDictionary_Caller.MyData1>;
 using kvpRR1 = System.Collections.Generic.KeyValuePair<SerializableDictionary_Caller.MyData1, SerializableDictionary_Caller.MyData1>;
 
-using ieVV2 = SerializableDictionary_Caller.ImExPorter<double, string>;
 using kvpVV2 = System.Collections.Generic.KeyValuePair<double, string>;
 
-using ieVR2 = SerializableDictionary_Caller.ImExPorter<int, SerializableDictionary_Caller.MyData2>;
 using kvpVR2 = System.Collections.Generic.KeyValuePair<int, SerializableDictionary_Caller.MyData2>;
 
-using ieRV2 = SerializableDictionary_Caller.ImExPorter<SerializableDictionary_Caller.MyData2, int>;
 using kvpRV2 = System.Collections.Generic.KeyValuePair<SerializableDictionary_Caller.MyData2, int>;
 
-using ieRR2 = SerializableDictionary_Caller.ImExPorter<SerializableDictionary_Caller.MyData2, SerializableDictionary_Caller.MyData2>;
 using kvpRR2 = System.Collections.Generic.KeyValuePair<SerializableDictionary_Caller.MyData2, SerializableDictionary_Caller.MyData2>;
 
 namespace SerializableDictionary_Caller {
     class Program {
         static void Main(string[] args) {
             string filePathVV1 = @"../Data/SampleVV1.log";
-            var dicVV1a = ieVV1.create(new kvpVV1[]{
+            var dicVV1a = new[]{
                 new kvpVV1(0, "Zero"),
                 new kvpVV1(1, "One"),
                 new kvpVV1(2, "Two"),
-            });
-            ieVV1.export(dicVV1a, filePathVV1);
-            var dicVV1b = ieVV1.import(filePathVV1);
+            }.ToSerializableDictionary();
+            dicVV1a.Export(filePathVV1);
+            var dicVV1b = (null as SerializableDictionary<int, string>).Import(filePathVV1);
 
             string filePathVR1 = @"../Data/SampleVR1.log";
-            var dicVR1a = ieVR1.create(new kvpVR1[]{
+            var dicVR1a = new[]{
                 new kvpVR1(0, new MyData1(){ ID=0, Name="Zero", RegisteredDate=DateTime.Now, Height=170.0, }),
                 new kvpVR1(1, new MyData1(){ ID=1, Name="One", RegisteredDate=DateTime.Now, Height=160.0, }),
                 new kvpVR1(2, new MyData1(){ ID=2, Name="Two", RegisteredDate=DateTime.Now, Height=165.0, }),
-            });
-            ieVR1.export(dicVR1a, filePathVR1);
-            var dicVR1b = ieVR1.import(filePathVR1);
+            }.ToSerializableDictionary();
+            dicVR1a.Export(filePathVR1);
+            var dicVR1b = (null as SerializableDictionary<int, SerializableDictionary_Caller.MyData1>).Import(filePathVR1);
 
             string filePathRV1 = @"../Data/SampleRV1.log";
-            var dicRV1a = ieRV1.create(new kvpRV1[]{
+            var dicRV1a = new[]{
                 new kvpRV1(new MyData1(){ ID=0, Name="Zero", RegisteredDate=DateTime.Now, Height=170.0, }, 0),
                 new kvpRV1(new MyData1(){ ID=1, Name="One", RegisteredDate=DateTime.Now, Height=160.0, }, 1),
                 new kvpRV1(new MyData1(){ ID=2, Name="Two", RegisteredDate=DateTime.Now, Height=165.0, }, 2),
-            });
-            ieRV1.export(dicRV1a, filePathRV1);
-            var dicRV1b = ieRV1.import(filePathRV1);
+            }.ToSerializableDictionary();
+            dicRV1a.Export(filePathRV1);
+            var dicRV1b = (null as SerializableDictionary<SerializableDictionary_Caller.MyData1, int>).Import(filePathRV1);
 
             string filePathRR1 = @"../Data/SampleRR1.log";
-            var dicRR1a = ieRR1.create(new kvpRR1[]{
+            var dicRR1a = new[]{
                 new kvpRR1(
                     new MyData1(){ ID=0, Name="Zero", RegisteredDate=DateTime.Now, Height=170.0, },
                     new MyData1(){ ID=10, Name="AZero", RegisteredDate=DateTime.Now, Height=175.1, }
@@ -70,9 +62,9 @@ namespace SerializableDictionary_Caller {
                     new MyData1(){ ID=2, Name="Two", RegisteredDate=DateTime.Now, Height=165.0, },
                     new MyData1(){ ID=12, Name="ATwo", RegisteredDate=DateTime.Now, Height=170.1, }
                 ),
-            });
-            ieRR1.export(dicRR1a, filePathRR1);
-            var dicRR1b = ieRR1.import(filePathRR1);
+            }.ToSerializableDictionary();
+            dicRR1a.Export(filePathRR1);
+            var dicRR1b = (null as SerializableDictionary<SerializableDictionary_Caller.MyData1, SerializableDictionary_Caller.MyData1>).Import(filePathRR1);
 
             TypeConverter myData2Converter = TypeDescriptor.GetConverter(typeof(MyData2));
             MyData2 myData2 = (MyData2)myData2Converter.ConvertFromString(
@@ -83,34 +75,34 @@ namespace SerializableDictionary_Caller {
             var myData2c = XmlHelper<MyData2>.convertFromString(myData2b);
 
             string filePathVV2 = @"../Data/SampleVV2.log";
-            var dicVV2a = ieVV2.create(new kvpVV2[]{
+            var dicVV2a = new[]{
                 new kvpVV2(0.1, "Zero"),
                 new kvpVV2(1.2, "One"),
                 new kvpVV2(2.3, "Two"),
-            });
-            ieVV2.export(dicVV2a, filePathVV2);
-            var dicVV2b = ieVV2.import(filePathVV2);
+            }.ToSerializableDictionary();
+            dicVV2a.Export(filePathVV2);
+            var dicVV2b = (null as SerializableDictionary<double, string>).Import(filePathVV2);
 
             string filePathVR2 = @"../Data/SampleVR2.log";
-            var dicVR2a = ieVR2.create(new kvpVR2[]{
+            var dicVR2a = new[]{
                 new kvpVR2(0, new MyData2(){ ID=0, Name="Zero", RegisteredDate=DateTime.Now, Height=170.0, }),
                 new kvpVR2(1, new MyData2(){ ID=1, Name="One", RegisteredDate=DateTime.Now, Height=160.0, }),
                 new kvpVR2(2, new MyData2(){ ID=2, Name="Two", RegisteredDate=DateTime.Now, Height=165.0, }),
-            });
-            ieVR2.export(dicVR2a, filePathVR2);
-            var dicVR2b = ieVR2.import(filePathVR2);
+            }.ToSerializableDictionary();
+            dicVR2a.Export(filePathVR2);
+            var dicVR2b = (null as SerializableDictionary<int, SerializableDictionary_Caller.MyData2>).Import(filePathVR2);
 
             string filePathRV2 = @"../Data/SampleRV2.log";
-            var dicRV2a = ieRV2.create(new kvpRV2[]{
+            var dicRV2a = new[]{
                 new kvpRV2(new MyData2(){ ID=0, Name="Zero", RegisteredDate=DateTime.Now, Height=170.0, }, 0),
                 new kvpRV2(new MyData2(){ ID=1, Name="One", RegisteredDate=DateTime.Now, Height=160.0, }, 1),
                 new kvpRV2(new MyData2(){ ID=2, Name="Two", RegisteredDate=DateTime.Now, Height=165.0, }, 2),
-            });
-            ieRV2.export(dicRV2a, filePathRV2);
-            var dicRV2 = ieRV2.import(filePathRV2);
+            }.ToSerializableDictionary();
+            dicRV2a.Export(filePathRV2);
+            var dicRV2 = (null as SerializableDictionary<SerializableDictionary_Caller.MyData2, int>).Import(filePathRV2);
 
             string filePathRR2 = @"../Data/SampleRR2.log";
-            var dicRR2a = ieRR2.create(new kvpRR2[]{
+            var dicRR2a = new[]{
                 new kvpRR2(
                     new MyData2(){ ID=0, Name="Zero", RegisteredDate=DateTime.Now, Height=170.0, },
                     new MyData2(){ ID=10, Name="AZero", RegisteredDate=DateTime.Now, Height=175.1, }
@@ -123,9 +115,9 @@ namespace SerializableDictionary_Caller {
                     new MyData2(){ ID=2, Name="Two", RegisteredDate=DateTime.Now, Height=165.0, },
                     new MyData2(){ ID=12, Name="ATwo", RegisteredDate=DateTime.Now, Height=170.1, }
                 ),
-            });
-            ieRR2.export(dicRR2a, filePathRR2);
-            var dicRR2b = ieRR2.import(filePathRR2);
+            }.ToSerializableDictionary();
+            dicRR2a.Export(filePathRR2);
+            var dicRR2b = (null as SerializableDictionary<SerializableDictionary_Caller.MyData2, SerializableDictionary_Caller.MyData2>).Import(filePathRR2);
 
             string filePathMyData3 = @"../Data/SampleMyData3.log";
             var myData3a = new MyData3() {
@@ -177,8 +169,8 @@ namespace SerializableDictionary_Caller {
                     },
                 },
             };
-            myData3a.export(filePathMyData3);
-            var myData3b = MyData3.import(filePathMyData3);
+            myData3a.Export(filePathMyData3);
+            var myData3b = (null as MyData3).Import(filePathMyData3);
 
             string filePathMyData4 = @"../Data/SampleMyData4.log";
             MyData4List myData4a = new MyData4[]{
@@ -198,8 +190,8 @@ namespace SerializableDictionary_Caller {
                     Position = new Point(3.333, 4.444),
                 },
             };
-            myData4a.export(filePathMyData4);
-            var myData4b = MyData4List.import(filePathMyData4);
+            myData4a.Export(filePathMyData4);
+            var myData4b = (null as MyData4List).Import(filePathMyData4);
 
             string filePathMyData5 = @"../Data/SampleMyData5.log";
             var myData5a = (MyData5s)new MyData5[]{
@@ -240,8 +232,8 @@ namespace SerializableDictionary_Caller {
                     },
                 },
             };
-            myData5a.export(filePathMyData5);
-            var myData5b = MyData5s.import(filePathMyData5);
+            myData5a.Export(filePathMyData5);
+            var myData5b = (null as MyData5s).Import(filePathMyData5);
             var myData5c = (MyData5[])myData5a;
             var myData5d = XmlHelper<MyData5s>.convertToString(myData5a);
             Console.WriteLine(myData5d);
@@ -313,10 +305,10 @@ namespace SerializableDictionary_Caller {
             myData6a["Camera"].Size = "8\"";
             myData6a["Monitor"].MakerID = 1000;
             myData6a["Scanner"].ID = "SomeID";
-            myData6a.export(filePathMyData6);
+            myData6a.Export(filePathMyData6);
             var myData6ax = myData6a.ToXml();
-            var myData6b = MyData6.import(filePathMyData6);
-            var myData6c = MyData6.FromXml(myData6ax);
+            var myData6b = (null as MyData6).Import(filePathMyData6);
+            var myData6c = (null as MyData6).FromXml(myData6ax);
             myData6a["Printer"][MyData6Channel.Channels.Blue].Add(new MyData6Item(255, 100));
             var myData6d = new MyData6() { Name = "d", };
             var myData6ex = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n" +
@@ -391,7 +383,7 @@ namespace SerializableDictionary_Caller {
                 "    </Channel>\r\n" +
                 "  </Device>\r\n" +
                 "</ListableDictionaryOfStringMyData6Device>";
-            var myData6e = MyData6.FromXml(myData6ex);
+            var myData6e = (null as MyData6).FromXml(myData6ex);
 
             var myData7a = new MyData7() {
                 new MyData7Item("A"),
@@ -404,7 +396,7 @@ namespace SerializableDictionary_Caller {
             myData7a["C"].Index = -1;
             myData7a["D"].Index = 10;
             var myData7ax = myData7a.ToXml();
-            var myData7b = MyData7.FromXml(myData7ax);
+            var myData7b = (null as MyData7).FromXml(myData7ax);
         }
     }
 }

@@ -5,7 +5,6 @@ using NUnit.Framework;
 using SerializableDictionary_Caller;
 using TakeAsh;
 
-using ieRR2 = SerializableDictionary_Caller.ImExPorter<SerializableDictionary_Caller.MyData2, SerializableDictionary_Caller.MyData2>;
 using kvpRR2 = System.Collections.Generic.KeyValuePair<SerializableDictionary_Caller.MyData2, SerializableDictionary_Caller.MyData2>;
 
 namespace SerializableDictionary_Test {
@@ -36,7 +35,7 @@ namespace SerializableDictionary_Test {
             _regDate = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0);
             _regDateString = _regDate.ToString().Replace(".0000000", "");
 
-            _dicRR2a = ieRR2.create(new kvpRR2[]{
+            _dicRR2a = new[]{
                 new kvpRR2(
                     new MyData2(){ ID=0, Name="Zero", RegisteredDate=_regDate, Height=170.0, },
                     new MyData2(){ ID=10, Name="AZero", RegisteredDate=_regDate, Height=175.1, }
@@ -49,7 +48,7 @@ namespace SerializableDictionary_Test {
                     new MyData2(){ ID=2, Name="Two", RegisteredDate=_regDate, Height=165.0, },
                     new MyData2(){ ID=12, Name="ATwo", RegisteredDate=_regDate, Height=170.1, }
                 ),
-            });
+            }.ToSerializableDictionary();
 
             _dicRR2aXml = _regRegDate.Replace(_dicRR2aXml, _regDateString);
         }
@@ -62,13 +61,13 @@ namespace SerializableDictionary_Test {
 
         [TestCase]
         public void VR_FromXml() {
-            var actual = SerializableDictionary<MyData2, MyData2>.FromXml(_dicRR2aXml);
+            var actual = (null as SerializableDictionary<MyData2, MyData2>).FromXml(_dicRR2aXml);
             Assert.AreEqual(_dicRR2aXml, actual.ToXml());
         }
 
         [TestCase]
         public void VR_export() {
-            _dicRR2a.export(_filePathRR2);
+            _dicRR2a.Export(_filePathRR2);
             var actual = "";
             using (var reader = new StreamReader(_filePathRR2)) {
                 actual = reader.ReadToEnd();
@@ -78,7 +77,7 @@ namespace SerializableDictionary_Test {
 
         [TestCase]
         public void VR_import() {
-            var actual = SerializableDictionary<MyData2, MyData2>.import(_filePathRR2);
+            var actual = (null as SerializableDictionary<MyData2, MyData2>).Import(_filePathRR2);
             Assert.AreEqual(_dicRR2aXml, actual.ToXml());
         }
     }

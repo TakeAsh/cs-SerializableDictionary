@@ -167,13 +167,9 @@ namespace SerializableDictionary_Caller {
         }
     }
 
-    public class MyData6 : ListableDictionary<string, MyData6Device> {
-        static public new MyData6 import(string fileName) {
-            return XmlHelper<MyData6>.importFile(fileName);
-        }
+    public class MyData6 :
+        ListableDictionary<string, MyData6Device>,
+        IXmlHelper {
 
-        public override bool export(string fileName) {
-            return XmlHelper<MyData6>.exportFile(fileName, this);
-        }
     }
 }
