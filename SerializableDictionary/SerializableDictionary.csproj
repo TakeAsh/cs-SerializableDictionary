@@ -66,6 +66,7 @@
     <Compile Include="StringExtensionMethods.cs" />
     <Compile Include="StringifyHelper.cs" />
     <Compile Include="XmlHelper.cs" />
+    <Compile Include="XmlHelperExtensionMethods.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
