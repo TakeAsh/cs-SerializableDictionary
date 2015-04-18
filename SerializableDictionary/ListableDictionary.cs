@@ -425,5 +425,19 @@ namespace TakeAsh {
 
             return new ListableDictionary<TKey, TItem>(items, name);
         }
+
+        public static T ToListableDictionary<T, TKey, TItem>(
+            this IEnumerable<TItem> items,
+            string name = null
+        )
+            where T : ListableDictionary<TKey, TItem>, new()
+            where TKey : IComparable
+            where TItem : IListableDictionariable<TKey>, new() {
+
+            var list = new T();
+            list.Name = name;
+            list.FromList(items);
+            return list;
+        }
     }
 }

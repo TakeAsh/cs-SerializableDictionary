@@ -47,7 +47,21 @@ namespace SerializableDictionary_Test {
 
         [TestCase]
         public void MyData7_ToMyData7_Test() {
-            var myData7a = _names.Select(name => new MyData7Item(name)).ToMyData7();
+            var myData7a = _names.
+                Select(name => new MyData7Item(name)).
+                ToMyData7();
+            Assert.AreEqual(_initialXml, myData7a.ToXml());
+            myData7a["B"].Index = 20;
+            myData7a["C"].Index = -1;
+            myData7a["D"].Index = 10;
+            Assert.AreEqual(_expectedXml, myData7a.ToXml());
+        }
+
+        [TestCase]
+        public void MyData7_ToListableDictionary_Test() {
+            var myData7a = _names.
+                Select(name => new MyData7Item(name)).
+                ToListableDictionary<MyData7, string, MyData7Item>();
             Assert.AreEqual(_initialXml, myData7a.ToXml());
             myData7a["B"].Index = 20;
             myData7a["C"].Index = -1;

@@ -32,7 +32,7 @@ namespace SerializableDictionary_Test {
 
         [SetUp]
         public void setup() {
-            _myData5a = (MyData5s)new MyData5[]{
+            _myData5a = new[]{
                 new MyData5(){
                     Position = MyData5.Positions.Floor4,
                     Name = "Charlie",
@@ -69,8 +69,7 @@ namespace SerializableDictionary_Test {
                         Owner = "Alpha",
                     },
                 },
-            };
-
+            }.ToListableDictionary<MyData5s, MyData5.Positions, MyData5>();
         }
 
         [TestCase]

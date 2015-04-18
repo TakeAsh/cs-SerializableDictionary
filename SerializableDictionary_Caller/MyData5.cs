@@ -93,10 +93,6 @@ namespace SerializableDictionary_Caller {
 
         public MyData5s() : base() { }
 
-        public MyData5s(MyData5[] source) : base(source) { }
-
-        static public explicit operator MyData5s(MyData5[] source) {
-            return new MyData5s(source);
-        }
+        public MyData5s(IEnumerable<MyData5> source) : base(source) { }
     }
 }
