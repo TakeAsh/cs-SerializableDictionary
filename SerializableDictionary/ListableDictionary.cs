@@ -148,14 +148,6 @@ namespace TakeAsh {
             set { base[key] = value; }
         }
 
-        static public explicit operator ListableDictionary<TKey, TItem>(TItem[] source) {
-            return new ListableDictionary<TKey, TItem>(source);
-        }
-
-        static public explicit operator TItem[](ListableDictionary<TKey, TItem> source) {
-            return source.ToArray();
-        }
-
         public override string ToString() {
             var ret = "";
             if (!String.IsNullOrEmpty(Name)) {
