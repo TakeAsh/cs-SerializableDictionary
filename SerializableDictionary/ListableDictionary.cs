@@ -44,6 +44,7 @@ namespace TakeAsh {
     [DebuggerTypeProxy(typeof(ListableDictionary<,>.DebugView))]
     public class ListableDictionary<TKey, TItem> :
         Dictionary<TKey, TItem>,
+        IEnumerable<TItem>,
         IXmlSerializable,
         IListableDictionariable<string>,
         IXmlHelper
@@ -177,18 +178,16 @@ namespace TakeAsh {
             items.ToList().ForEach(item => Add(item));
         }
 
-        public IEnumerable<TItem> ToList() {
-            return !SortByItem ?
-                SortedKeys.Select(key => this[key]) :
-                Keys.Select(key => this[key]).OrderBy(item => item);
+        public List<TItem> ToList() { // hide ToList<KeyValuePair<TKey, TItem>>()
+            return this.ToList<TItem>();
         }
 
         public void FromArray(TItem[] items) {
             FromList(items);
         }
 
-        public TItem[] ToArray() {
-            return ToList().ToArray();
+        public TItem[] ToArray() { // hide ToArray<KeyValuePair<TKey, TItem>>()
+            return this.ToArray<TItem>();
         }
 
         public virtual void Add(TItem item) {
@@ -262,9 +261,9 @@ namespace TakeAsh {
             if (ExtraElementManager != null && ExtraElement != null) {
                 ExtraElementManager.Serialize(writer, ExtraElement);
             }
-            foreach (var item in ToArray()) {
+            this.ToList().ForEach(item => {
                 XmlHelper<TItem>.writeElement(writer, item);
-            }
+            });
         }
 
         #endregion
@@ -277,6 +276,19 @@ namespace TakeAsh {
 
         public void setKey(string name) {
             this.Name = name;
+        }
+
+        #endregion
+
+        #region IEnumerable<TItem>
+
+        public new IEnumerator<TItem> GetEnumerator() {
+            var items = !SortByItem ?
+                SortedKeys.Select(key => this[key]) :
+                Keys.Select(key => this[key]).OrderBy(item => item);
+            foreach (var item in items) {
+                yield return item;
+            }
         }
 
         #endregion
@@ -313,7 +325,7 @@ namespace TakeAsh {
             private string ExtraAttributeNamesString {
                 get {
                     var extraAttributeNames = ListableDictionary<TKey, TItem>.ExtraAttributeNames;
-                    if (extraAttributeNames==null) {
+                    if (extraAttributeNames == null) {
                         return "null";
                     }
                     var ret = "Length:" + extraAttributeNames.Length;

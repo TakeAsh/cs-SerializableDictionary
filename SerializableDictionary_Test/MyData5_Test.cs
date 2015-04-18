@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using NUnit.Framework;
 using SerializableDictionary_Caller;
 using TakeAsh;
@@ -9,30 +10,7 @@ namespace SerializableDictionary_Test {
     [TestFixture]
     class MyData5_Test {
 
-        private MyData5s _myData5a;
-
-        private string _myData5aXml =
-            "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n" +
-            "<MyData5s KeyType=\"Positions\" Count=\"4\">\r\n" +
-            "  <MyData5 Name=\"Alpha\" Position=\"Floor1\" HitPoint=\"100\">\r\n" +
-            "    <Weapon Name=\"Club\" Owner=\"Alpha\" />\r\n" +
-            "  </MyData5>\r\n" +
-            "  <MyData5 Name=\"Bravo\" Position=\"Floor3\" HitPoint=\"200\">\r\n" +
-            "    <Weapon Name=\"Mace\" Owner=\"Bravo\" />\r\n" +
-            "  </MyData5>\r\n" +
-            "  <MyData5 Name=\"Charlie\" Position=\"Floor4\" HitPoint=\"300\">\r\n" +
-            "    <Weapon Name=\"Hammer\" Owner=\"Charlie\" />\r\n" +
-            "  </MyData5>\r\n" +
-            "  <MyData5 Name=\"Delta\" Position=\"FloorB1\" HitPoint=\"500\">\r\n" +
-            "    <Weapon Name=\"Sword\" Owner=\"Delta\" />\r\n" +
-            "  </MyData5>\r\n" +
-            "</MyData5s>";
-
-        static string _filePathMyData5 = @"../../Data/SampleMyData5.log";
-
-        [SetUp]
-        public void setup() {
-            _myData5a = new[]{
+        static private readonly MyData5[] _myData5aArray = new[]{
                 new MyData5(){
                     Position = MyData5.Positions.Floor4,
                     Name = "Charlie",
@@ -69,7 +47,37 @@ namespace SerializableDictionary_Test {
                         Owner = "Alpha",
                     },
                 },
-            }.ToListableDictionary<MyData5s, MyData5.Positions, MyData5>();
+            };
+
+        static private MyData5s _myData5a = _myData5aArray.
+            ToListableDictionary<MyData5s, MyData5.Positions, MyData5>();
+
+        static private string _myData5aXml =
+            "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n" +
+            "<MyData5s KeyType=\"Positions\" Count=\"4\">\r\n" +
+            "  <MyData5 Name=\"Alpha\" Position=\"Floor1\" HitPoint=\"100\">\r\n" +
+            "    <Weapon Name=\"Club\" Owner=\"Alpha\" />\r\n" +
+            "  </MyData5>\r\n" +
+            "  <MyData5 Name=\"Bravo\" Position=\"Floor3\" HitPoint=\"200\">\r\n" +
+            "    <Weapon Name=\"Mace\" Owner=\"Bravo\" />\r\n" +
+            "  </MyData5>\r\n" +
+            "  <MyData5 Name=\"Charlie\" Position=\"Floor4\" HitPoint=\"300\">\r\n" +
+            "    <Weapon Name=\"Hammer\" Owner=\"Charlie\" />\r\n" +
+            "  </MyData5>\r\n" +
+            "  <MyData5 Name=\"Delta\" Position=\"FloorB1\" HitPoint=\"500\">\r\n" +
+            "    <Weapon Name=\"Sword\" Owner=\"Delta\" />\r\n" +
+            "  </MyData5>\r\n" +
+            "</MyData5s>";
+
+        static string _filePathMyData5 = @"../../Data/SampleMyData5.log";
+
+        [TestCase]
+        public void MyData5Test_IEnumerable() {
+            var sorted = _myData5aArray.OrderBy(item => item.getKey()).ToList();
+            var i = 0;
+            foreach (var item in _myData5a) {
+                Assert.AreEqual(sorted[i++], item);
+            }
         }
 
         [TestCase]

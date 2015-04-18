@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using TakeAsh;
 
 using kvpVV1 = System.Collections.Generic.KeyValuePair<int, string>;
@@ -194,7 +196,7 @@ namespace SerializableDictionary_Caller {
             var myData4b = (null as MyData4List).Import(filePathMyData4);
 
             string filePathMyData5 = @"../Data/SampleMyData5.log";
-            var myData5a = (MyData5s)new MyData5[]{
+            var myData5a = new []{
                 new MyData5(){
                     Position = MyData5.Positions.Floor4,
                     Name = "Charlie",
@@ -231,10 +233,10 @@ namespace SerializableDictionary_Caller {
                         Owner = "Alpha",
                     },
                 },
-            };
+            }.ToListableDictionary<MyData5s, MyData5.Positions, MyData5>();
             myData5a.Export(filePathMyData5);
             var myData5b = (null as MyData5s).Import(filePathMyData5);
-            var myData5c = (MyData5[])myData5a;
+            var myData5c = myData5a.ToList();
             var myData5d = XmlHelper<MyData5s>.convertToString(myData5a);
             Console.WriteLine(myData5d);
             var myData5e = XmlHelper<MyData5s>.convertFromString(myData5d);
