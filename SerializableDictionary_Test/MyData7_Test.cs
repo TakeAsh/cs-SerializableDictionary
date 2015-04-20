@@ -68,5 +68,19 @@ namespace SerializableDictionary_Test {
             myData7a["D"].Index = 10;
             Assert.AreEqual(_expectedXml, myData7a.ToXml());
         }
+
+        [TestCase]
+        public void MyData7_Clone_Test() {
+            var myData7a = _names.
+                Select(name => new MyData7Item(name)).
+                ToMyData7();
+            var myData7b = myData7a.Clone();
+            myData7b["B"].Index = 20;
+            myData7b["C"].Index = -1;
+            myData7b["D"].Index = 10;
+            Assert.AreEqual(_expectedXml, myData7b.ToXml());
+            Assert.AreEqual(_initialXml, myData7a.ToXml());
+            Assert.AreNotEqual(myData7a.ToXml(), myData7b.ToXml());
+        }
     }
 }

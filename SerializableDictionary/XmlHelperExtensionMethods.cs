@@ -73,5 +73,17 @@ namespace TakeAsh {
 
             return XmlHelper<T>.convertToString(obj);
         }
+
+        /// <summary>
+        /// Create Clone (deep copy)
+        /// </summary>
+        /// <typeparam name="T">type</typeparam>
+        /// <param name="obj">object</param>
+        /// <returns>clone of object</returns>
+        static public T Clone<T>(this T obj)
+            where T : IXmlHelper {
+
+            return obj.FromXml(obj.ToXml());
+        }
     }
 }
