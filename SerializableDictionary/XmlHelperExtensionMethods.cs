@@ -6,7 +6,7 @@ using System.Text;
 namespace TakeAsh {
 
     /// <summary>
-    /// Add extension methods (Import, Export, FromXml, ToXml)
+    /// Add extension methods (Import, Export, FromXml, ToXml, Clone)
     /// </summary>
     public interface IXmlHelper { }
 
@@ -75,7 +75,7 @@ namespace TakeAsh {
         }
 
         /// <summary>
-        /// Create Clone (deep copy)
+        /// Create clone (deep copy)
         /// </summary>
         /// <typeparam name="T">type</typeparam>
         /// <param name="obj">object</param>
