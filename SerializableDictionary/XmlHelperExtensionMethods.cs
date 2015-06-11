@@ -75,7 +75,7 @@ namespace TakeAsh {
         }
 
         /// <summary>
-        /// Create clone (deep copy)
+        /// Create clone (deep copy, except the properties that have XmlIgnore attribute)
         /// </summary>
         /// <typeparam name="T">type</typeparam>
         /// <param name="obj">object</param>
