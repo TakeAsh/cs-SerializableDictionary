@@ -83,7 +83,9 @@ namespace TakeAsh {
         static public T Clone<T>(this T obj)
             where T : IXmlHelper {
 
-            return obj.FromXml(obj.ToXml());
+            return obj != null ?
+                obj.FromXml(obj.ToXml()) :
+                default(T);
         }
     }
 }
