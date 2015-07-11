@@ -60,7 +60,6 @@
   <ItemGroup>
     <Compile Include="ForceToStringConverter.cs" />
     <Compile Include="ListableDictionary.cs" />
-    <Compile Include="ObjectExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializableDictionary.cs" />
     <Compile Include="StringifyHelper.cs" />
