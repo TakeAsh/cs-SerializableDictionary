@@ -78,7 +78,6 @@
     <Compile Include="MyData3_Test.cs" />
     <Compile Include="MyData4_Test.cs" />
     <Compile Include="MyData5_Test.cs" />
-    <Compile Include="StringExtensionMethods_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SerializableDictionary\SerializableDictionary.csproj">

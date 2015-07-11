@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
 using TakeAsh;
+using TakeAshUtility;
 
 namespace SerializableDictionary_Caller {
     [TypeConverter(typeof(StringifyConverter<Point>))]
