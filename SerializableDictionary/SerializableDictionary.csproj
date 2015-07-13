@@ -62,7 +62,6 @@
     <Compile Include="ListableDictionary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializableDictionary.cs" />
-    <Compile Include="StringifyHelper.cs" />
     <Compile Include="XmlHelper.cs" />
     <Compile Include="XmlHelperExtensionMethods.cs" />
   </ItemGroup>
