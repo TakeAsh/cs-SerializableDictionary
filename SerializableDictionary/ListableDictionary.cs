@@ -197,6 +197,14 @@ namespace TakeAsh {
             this[item.getKey()] = item;
         }
 
+        public virtual void AddRange(IEnumerable<TItem> items) {
+            if (items == null) {
+                return;
+            }
+            items.ToList()
+                .ForEach(item => this.Add(item));
+        }
+
         #region IXmlSerializable Members
 
         public virtual XmlSchema GetSchema() {
