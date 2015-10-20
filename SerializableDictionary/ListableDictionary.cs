@@ -139,14 +139,24 @@ namespace TakeAsh {
 
         public new TItem this[TKey key] {
             get {
-                if (AutoNewItem && !base.ContainsKey(key)) {
+                if (key == null) {
+                    return default(TItem);
+                }
+                if (AutoNewItem && !ContainsKey(key)) {
                     var item = new TItem();
                     item.setKey(key);
                     base[key] = item;
                 }
-                return base[key];
+                return ContainsKey(key) ?
+                    base[key] :
+                    default(TItem);
             }
-            set { base[key] = value; }
+            set {
+                if (key == null) {
+                    return;
+                }
+                base[key] = value;
+            }
         }
 
         public override string ToString() {
