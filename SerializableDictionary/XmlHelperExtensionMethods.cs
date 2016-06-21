@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace TakeAsh {
 
@@ -86,6 +88,18 @@ namespace TakeAsh {
             return obj != null ?
                 obj.FromXml(obj.ToXml()) :
                 default(T);
+        }
+
+        public static T ReadElement<T>(this XmlReader reader)
+            where T : IXmlHelper {
+
+            return XmlHelper<T>.readElement(reader);
+        }
+
+        public static void WriteElement<T>(this XmlWriter writer, T value)
+            where T : IXmlHelper {
+
+            XmlHelper<T>.writeElement(writer, value);
         }
     }
 }
